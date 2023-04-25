@@ -17,6 +17,8 @@ model Card {
   Type        String
   Class       String
   Strenght    String
+  skills      SkillsOnCards[]
+  colors      ColorsOnCards[]
 }
 
 model Skill {
@@ -24,16 +26,55 @@ model Skill {
 	attribute       String
 	name            String
 	description     String
+	colors          ColorsOnSkills[]
+	abilities       AbilitiesOnSkills[]
+	cards           SkillsOnCards[]
 }
 
 model Ability {
 	id              Int             @id @default(autoincrement())
-	color           String
+	name            String
+	description     String
+	value           Int
+	state           String
+	skills          AbilitiesOnSkills[]
 }
 
 model Color {
 	id              Int             @id @default(autoincrement())
-	attribute       String
-	name            String
-	description     String
+	color           String
+	skills          ColorsOnSkills[]
+	cards           ColorsOnCards[]
+}
+
+model AbilitiesOnSkills {
+    skill           Skill           @relation(fields: [skillId], references: [id], onDelete: Cascade)
+    skillId         Int
+    ability         Ability         @relation(fields: [abilityId], references: [id], onDelete: Cascade)
+    abilityId       Int
+    @@id([skillId, abilityId])
+}
+
+model SkillsOnCards {
+    skill           Skill           @relation(fields: [skillId], references: [id], onDelete: Cascade)
+    skillId         Int
+    card            Card            @relation(fields: [cardId], references: [id], onDelete: Cascade)
+    cardId          Int
+    @@id([skillId, cardId])
+}
+
+model ColorsOnSkills {
+    skill           Skill           @relation(fields: [skillId], references: [id], onDelete: Cascade)
+    skillId         Int
+    color           Color           @relation(fields: [colorId], references: [id], onDelete: Cascade)
+    colorId         Int
+    @@id([skillId, colorId])
+}
+
+model ColorsOnCards {
+    card            Card            @relation(fields: [cardId], references: [id], onDelete: Cascade)
+    cardId          Int
+    color           Color           @relation(fields: [colorId], references: [id], onDelete: Cascade)
+    colorId         Int
+    @@id([cardId, colorId])
 }
