@@ -18,3 +18,10 @@ model Card {
   Class       String
   Strenght    String
 }
+
+model Skill {
+	id              Int             @id @default(autoincrement())
+	attribute       String
+	name            String
+	description     String
+}
