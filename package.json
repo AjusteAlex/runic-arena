@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index",
-    "migration": "npx prisma migrate dev"
+    "migration": "npx prisma migrate dev",
+    "bdd": "npx prisma studio"
   },
   "author": "",
   "license": "ISC",

@@ -15,5 +15,23 @@ router
     res.statusCode = 200;
     res.end(JSON.stringify({ allcards }));
   })
+  .post(async function (req,res){
+    try{
+        const card = await prisma.card.create({
+            data: {
+                Name: "test",
+                Picture: "image.test",
+                Type: "Halo",
+                Class: "Mage",
+                Strenght: "75"
+            }
+        })
+        res.json(card)
+    }
+    catch (error){
+        res.statusCode = 400;
+        res.end("Erreur produite sur la création d'une carte : ".error);
+    }
+  })
 
 module.exports = router;
