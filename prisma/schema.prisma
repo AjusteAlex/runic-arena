@@ -28,8 +28,12 @@ model Skill {
 
 model Ability {
 	id              Int             @id @default(autoincrement())
+	color           String
+}
+
+model Color {
+	id              Int             @id @default(autoincrement())
+	attribute       String
 	name            String
 	description     String
-	value           Int
-	state           String
 }
