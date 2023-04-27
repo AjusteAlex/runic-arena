@@ -11,70 +11,90 @@ datasource db {
 }
 
 model Card {
-  id          Int            @id @default(autoincrement())
-  name        String
-  picture     String
-  type        String
-  class       String
-  strenght    String
-  skills      SkillsOnCards[]
-  colors      ColorsOnCards[]
+  id       Int             @id @default(autoincrement())
+  name     String
+  picture  String
+  type     String
+  class    String
+  strenght String
+  skills   SkillsOnCards[]
+  // colors   ColorsOnCards[]
 }
 
 model Skill {
-	id              Int             @id @default(autoincrement())
-	attribute       String
-	name            String
-	description     String
-	colors          ColorsOnSkills[]
-	abilities       AbilitiesOnSkills[]
-	cards           SkillsOnCards[]
+  id          Int                 @id @default(autoincrement())
+  attribute   String
+  name        String
+  description String
+  colors      ColorsOnSkills[]
+  abilities   AbilitiesOnSkills[]
+  cards       SkillsOnCards[]
 }
 
 model Ability {
-	id              Int             @id @default(autoincrement())
-	name            String
-	description     String
-	value           Int
-	state           String
-	skills          AbilitiesOnSkills[]
+  id          Int                 @id @default(autoincrement())
+  name        String
+  description String
+  value       Int
+  state       String
+  skills      AbilitiesOnSkills[]
 }
 
 model Color {
-	id              Int             @id @default(autoincrement())
-	color           String
-	skills          ColorsOnSkills[]
-	cards           ColorsOnCards[]
+  id              Int              @id @default(autoincrement())
+  color           String
+  // cards           ColorsOnCards[]
+  ColorsOnSkills1 ColorsOnSkills[] @relation("Color1")
+  ColorsOnSkills2 ColorsOnSkills[] @relation("Color2")
+  ColorsOnSkills3 ColorsOnSkills[] @relation("Color3")
+  ColorsOnSkills4 ColorsOnSkills[] @relation("Color4")
+  ColorsOnSkills5 ColorsOnSkills[] @relation("Color5")
 }
 
 model AbilitiesOnSkills {
-    skill           Skill           @relation(fields: [skillId], references: [id], onDelete: Cascade)
-    skillId         Int
-    ability         Ability         @relation(fields: [abilityId], references: [id], onDelete: Cascade)
-    abilityId       Int
-    @@id([skillId, abilityId])
+  skill     Skill   @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  skillId   Int
+  ability   Ability @relation(fields: [abilityId], references: [id], onDelete: Cascade)
+  abilityId Int
+
+  @@id([skillId, abilityId])
 }
 
 model SkillsOnCards {
-    skill           Skill           @relation(fields: [skillId], references: [id], onDelete: Cascade)
-    skillId         Int
-    card            Card            @relation(fields: [cardId], references: [id], onDelete: Cascade)
-    cardId          Int
-    @@id([skillId, cardId])
+  skill   Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  skillId Int
+  card    Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  cardId  Int
+
+  @@id([skillId, cardId])
 }
 
 model ColorsOnSkills {
-    skill           Skill           @relation(fields: [skillId], references: [id], onDelete: Cascade)
-    skillId         Int
-    color           Color           @relation(fields: [colorId], references: [id], onDelete: Cascade)
-    colorId         Int
-    @@id([skillId, colorId])
+  skill    Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  skillId  Int
+  color1   Color @relation("Color1", fields: [colorId1], references: [id], onDelete: Cascade)
+  colorId1 Int
+  color2   Color @relation("Color2", fields: [colorId2], references: [id], onDelete: Cascade)
+  colorId2 Int
+  color3   Color @relation("Color3", fields: [colorId3], references: [id], onDelete: Cascade)
+  colorId3 Int
+  color4   Color @relation("Color4", fields: [colorId4], references: [id], onDelete: Cascade)
+  colorId4 Int
+  color5   Color @relation("Color5", fields: [colorId5], references: [id], onDelete: Cascade)
+  colorId5 Int
+
+  @@unique([skillId, colorId1])
+  @@unique([skillId, colorId2])
+  @@unique([skillId, colorId3])
+  @@unique([skillId, colorId4])
+  @@unique([skillId, colorId5])
 }
 
-model ColorsOnCards {
-    card            Card            @relation(fields: [cardId], references: [id], onDelete: Cascade)
-    cardId          Int
-    color           Color           @relation(fields: [colorId], references: [id], onDelete: Cascade)
-    colorId         Int
-    @@id([cardId, colorId])
-}
+// model ColorsOnCards {
+//   card    Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+//   cardId  Int
+//   color   Color @relation(fields: [colorId], references: [id], onDelete: Cascade)
+//   colorId Int
+
+//   @@id([cardId, colorId])
+// }
