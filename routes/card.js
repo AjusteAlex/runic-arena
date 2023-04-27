@@ -43,5 +43,35 @@ router
       })
       res.send(card)
     })
+    .put('/:id', upload.none(), async function (req,res){
+      try{
+        const card = await prisma.card.update({
+          where: {
+            id: parseInt(req.params.id),
+          },
+          data: {
+            name: req.body.name,
+            picture: req.body.picture,
+            type: req.body.type,
+            class: req.body.class,
+            strenght: req.body.strenght
+          }
+        })
+        res.status(200).json({ message: 'Carte bien modifié.'})
+      }
+      catch(err){
+        res.status(400)
+        res.send('Erreur')
+      }
+
+    })
+    .delete('/:id', async function (req,res){
+      const card = await prisma.card.delete({
+        where: {
+          id: parseInt(req.params.id),
+        }
+      })
+      res.status(200).json({ message: 'Carte supprimé.'})
+    })
 
 module.exports = router;
