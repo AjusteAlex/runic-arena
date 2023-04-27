@@ -2,6 +2,8 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 var express = require('express');
 var router = express.Router();
+const multer = require('multer')
+const upload = multer()
 
 router
   .route("/")
@@ -15,22 +17,22 @@ router
     res.statusCode = 200;
     res.end(JSON.stringify({ allcards }));
   })
-  .post(async function (req,res){
-    try{
-        const card = await prisma.card.create({
-            data: {
-                Name: "test",
-                Picture: "image.test",
-                Type: "Halo",
-                Class: "Mage",
-                Strenght: "75"
-            }
-        })
-        res.json(card)
-    }
-    catch (error){
-        res.statusCode = 400;
-        res.end("Erreur produite sur la création d'une carte : ".error);
+
+  .post(upload.none(), async function (req,res){
+    try{  const card = await prisma.card.create({
+        data: {
+              name: req.body.name,
+              picture: req.body.picture,
+              type: req.body.type,
+              class: req.body.class,
+              strenght: req.body.strenght
+          }
+      })
+      res.status(200).json({ message: 'Carte bien créer.'})
+      res.send('ok')
+    }catch(err){
+      res.status(400)
+      res.send('Erreur')
     }
   })
 
