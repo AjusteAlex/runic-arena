@@ -12,11 +12,11 @@ datasource db {
 
 model Card {
   id          Int            @id @default(autoincrement())
-  Name        String
-  Picture     String
-  Type        String
-  Class       String
-  Strenght    String
+  name        String
+  picture     String
+  type        String
+  class       String
+  strenght    String
   skills      SkillsOnCards[]
   colors      ColorsOnCards[]
 }
