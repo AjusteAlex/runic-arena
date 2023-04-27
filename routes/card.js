@@ -29,11 +29,19 @@ router
           }
       })
       res.status(200).json({ message: 'Carte bien créer.'})
-      res.send('ok')
     }catch(err){
       res.status(400)
       res.send('Erreur')
     }
   })
+  router
+    .get('/:id', async function (req,res){
+      const card = await prisma.card.findUnique({
+        where: {
+          id: parseInt(req.params.id),
+        },
+      })
+      res.send(card)
+    })
 
 module.exports = router;
