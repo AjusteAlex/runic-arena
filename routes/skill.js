@@ -5,6 +5,7 @@ var router = express.Router();
 const multer = require('multer')
 const upload = multer()
 
+
 router
   .route("/")
   .get(async function (req, res) {
@@ -13,22 +14,20 @@ router
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-    const allcards = await prisma.card.findMany({});
+    const allskills = await prisma.skill.findMany({});
     res.statusCode = 200;
-    res.end(JSON.stringify({ allcards }));
+    res.end(JSON.stringify({ allskills }));
   })
 
   .post(upload.none(), async function (req,res){
-    try{  const card = await prisma.card.create({
+    try{  const skill = await prisma.skill.create({
         data: {
+              attribute: req.body.attribute,
               name: req.body.name,
-              picture: req.body.picture,
-              type: req.body.type,
-              class: req.body.class,
-              strenght: req.body.strenght
+              description: req.body.description
           }
       })
-      res.status(200).json({ message: 'Carte bien créer.'})
+      res.status(200).json({ message: 'Compétence bien créer.'})
     }catch(err){
       res.status(400)
       res.send('Erreur')
@@ -36,28 +35,26 @@ router
   })
   router
     .get('/:id', async function (req,res){
-      const card = await prisma.card.findUnique({
+      const skill = await prisma.skill.findUnique({
         where: {
           id: parseInt(req.params.id),
         },
       })
-      res.send(card)
+      res.send(skill)
     })
     .put('/:id', upload.none(), async function (req,res){
       try{
-        const card = await prisma.card.update({
+        const skill = await prisma.skill.update({
           where: {
             id: parseInt(req.params.id),
           },
           data: {
+            attribute: req.body.attribute,
             name: req.body.name,
-            picture: req.body.picture,
-            type: req.body.type,
-            class: req.body.class,
-            strenght: req.body.strenght
+            description: req.body.description
           }
         })
-        res.status(200).json({ message: 'Carte bien modifié.'})
+        res.status(200).json({ message: 'Compétence bien modifié.'})
       }
       catch(err){
         res.status(400)
@@ -66,12 +63,12 @@ router
 
     })
     .delete('/:id', async function (req,res){
-      const card = await prisma.card.delete({
+      const skill = await prisma.skill.delete({
         where: {
           id: parseInt(req.params.id),
         }
       })
-      res.status(200).json({ message: 'Carte supprimé.'})
+      res.status(200).json({ message: 'Compétence supprimé.'})
     })
 
 module.exports = router;
