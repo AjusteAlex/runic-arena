@@ -2,6 +2,7 @@ node_modules
 # Keep environment variables out of version control
 .env
 dist/
+/uploads/
 npm-debug.log
 yarn-error.log
 # Created by https://www.toptal.com/developers/gitignore/api/phpstorm,visualstudiocode
