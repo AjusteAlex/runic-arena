@@ -1,12 +1,12 @@
 <template>
 <div>
-    <CardItem></CardItem>
+    <CardItem/>
 </div>
 </template>
 <script>
 import CardItem from '../components/CardItem.vue';
 export default{
-    components: {CardItem}
+    components: { CardItem }
 }
 </script>
 <style>

@@ -1,7 +1,8 @@
 <template>
-  <div class="cards" v-if="cards">
-    <div v-for="(card) in cards" :key="card.id">
-      {{card.id}} {{card.name}} {{card.picture}} {{card.type}} {{card.class}} {{card.strenght}} 
+  <div class="colors" v-if="colors">
+    <br>
+    <div v-for="color in colors" :key="color.id">
+      {{color.id}} {{color.name}}
     </div>
   </div>
 </template>
@@ -13,11 +14,11 @@ export default{
     },
     data() {
         return {
-          cards:null
+          colors:null
         }
     },
     mounted() {
-      fetch('http://localhost:3000/card')
+      fetch('http://localhost:3000/color')
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -25,8 +26,7 @@ export default{
           return response.json();
         })
         .then(response => {
-          this.cards = response.allcards;
-          console.log(response.allcards);
+          this.colors = response.allcolors;
         })
         .catch(error => {
           error => console.error(error)
@@ -36,7 +36,7 @@ export default{
 </script>
 <style>
 @media (min-width: 1024px) {
-  .cards {
+  .colors {
     min-height: 100vh;
     display: block;
   }

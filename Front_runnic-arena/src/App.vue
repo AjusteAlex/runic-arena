@@ -1,5 +1,5 @@
 <script>
-import { RouterLink } from 'vue-router';
+import { RouterLink, RouterView } from 'vue-router';
 
 </script>
 
@@ -7,10 +7,14 @@ import { RouterLink } from 'vue-router';
   <div id="app">
     <header>
       <nav>
-        <RouterLink to="/">Accueil</RouterLink>
-        <RouterLink to="/cards">Cards</RouterLink>
+        <router-link to="/">Accueil</router-link>
+        <router-link to="/cards">Cards</router-link>
+        <router-link to="/skills">Skills</router-link>
+        <router-link to="/abilities">Abilities</router-link>
+        <router-link to="/colors">Colors</router-link>
       </nav>
     </header>
+    <RouterView/>
   </div>
 </template>
 
