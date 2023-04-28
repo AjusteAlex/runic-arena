@@ -3,7 +3,26 @@ const prisma = new PrismaClient()
 var express = require('express');
 var router = express.Router();
 const multer = require('multer')
-const upload = multer()
+const {extname} = require("path");
+const fs = require('fs');
+
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      if (!fs.existsSync('uploads')) {
+        fs.mkdirSync('uploads/cards');
+      }
+      cb(null, 'uploads/cards')
+    },
+    filename: function (req, file, cb) {
+        const fileExt = extname(file.originalname)
+        const newFilename = `${file.fieldname}-${Date.now()}${fileExt}`
+        cb(null, newFilename)
+    }
+})
+
+const upload = multer({storage: storage})
 
 router
   .route("/")
@@ -24,12 +43,12 @@ router
     res.end(JSON.stringify({ allcards }));
   })
 
-  .post(upload.none(), async function (req,res){
+  .post(upload.single('picture'), async function (req,res){
     try{  
       const card = await prisma.card.create({
         data: {
               name: req.body.name,
-              picture: req.body.picture,
+              picture: req.file.filename,
               type: req.body.type,
               class: req.body.class,
               strenght: req.body.strenght,
@@ -47,6 +66,7 @@ router
               }
           }
       })
+      console.log(card)
       res.status(200).json({ message: 'Carte bien créer.'})
     }catch(err){
       res.status(400)
