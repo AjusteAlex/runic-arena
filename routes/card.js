@@ -33,6 +33,7 @@ router
               type: req.body.type,
               class: req.body.class,
               strenght: req.body.strenght,
+              // Liaison entre carte et une compétence déja créer
               skills:{
                 create : [
                   {
@@ -46,8 +47,6 @@ router
               }
           }
       })
-      
-      console.log(card)
       res.status(200).json({ message: 'Carte bien créer.'})
     }catch(err){
       res.status(400)
@@ -79,7 +78,18 @@ router
             picture: req.body.picture,
             type: req.body.type,
             class: req.body.class,
-            strenght: req.body.strenght
+            strenght: req.body.strenght,
+            skills:{
+              create : [
+                {
+                  skill:{
+                    connect:{
+                      id: parseInt(req.body.skillId)
+                    }
+                  }
+                }
+              ]
+            }
           }
         })
         res.status(200).json({ message: 'Carte bien modifié.'})
