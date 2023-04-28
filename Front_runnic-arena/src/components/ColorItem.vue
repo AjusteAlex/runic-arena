@@ -2,7 +2,7 @@
   <div class="colors" v-if="colors">
     <br>
     <div v-for="color in colors" :key="color.id">
-      {{color.id}} {{color.name}}
+      {{color.id}} {{color.color}}
     </div>
   </div>
 </template>
