@@ -6,14 +6,12 @@ const multer = require('multer')
 const {extname} = require("path");
 const fs = require('fs');
 
-
-
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      if (!fs.existsSync('uploads')) {
-        fs.mkdirSync('uploads/cards');
-      }
-      cb(null, 'uploads/cards')
+      // if (!fs.existsSync('uploads')) {
+      //   fs.mkdirSync('uploads/cards');
+      // }
+      cb(null, 'uploads')
     },
     filename: function (req, file, cb) {
         const fileExt = extname(file.originalname)
@@ -87,38 +85,41 @@ router
       })
       res.send(card)
     })
-    .put('/:id', upload.none(), async function (req,res){
+    .put('/:id', upload.single('picture'), async function (req,res){
+      let data = {
+          name: req.body.name,
+          type: req.body.type,
+          class: req.body.class,
+          strenght: req.body.strenght,
+        }
+        if(req.file){
+          data.picture = req.file.filename;
+        }
+        if (req.body.skillId) {
+          data.skills = {
+            update: [
+              {
+                skill:{
+                  connect:{
+                    id: parseInt(req.body.skillId)
+                  }
+                }
+              }
+            ]
+          }
+        }
       try{
         const card = await prisma.card.update({
           where: {
             id: parseInt(req.params.id),
           },
-          data: {
-            name: req.body.name,
-            picture: req.body.picture,
-            type: req.body.type,
-            class: req.body.class,
-            strenght: req.body.strenght,
-            skills:{
-              create : [
-                {
-                  skill:{
-                    connect:{
-                      id: parseInt(req.body.skillId)
-                    }
-                  }
-                }
-              ]
-            }
-          }
+          data
         })
         res.status(200).json({ message: 'Carte bien modifié.'})
       }
       catch(err){
-        res.status(400)
-        res.send('Erreur')
+        res.send(err);
       }
-
     })
     .delete('/:id', async function (req,res){
       const card = await prisma.card.delete({
