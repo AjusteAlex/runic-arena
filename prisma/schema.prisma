@@ -42,7 +42,7 @@ model Ability {
 
 model Color {
   id              Int              @id @default(autoincrement())
-  color           String
+  name            String
   // cards           ColorsOnCards[]
   ColorsOnSkills1 ColorsOnSkills[] @relation("Color1")
   ColorsOnSkills2 ColorsOnSkills[] @relation("Color2")
