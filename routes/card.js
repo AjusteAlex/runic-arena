@@ -13,19 +13,38 @@ router
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-    const allcards = await prisma.card.findMany({});
+    const allcards = await prisma.card.findMany({
+      include: {
+        skills: {
+          select: { skill: true }
+        }
+      },
+    });
     res.statusCode = 200;
     res.end(JSON.stringify({ allcards }));
   })
 
   .post(upload.none(), async function (req,res){
-    try{  const card = await prisma.card.create({
+    try{  
+      const card = await prisma.card.create({
         data: {
               name: req.body.name,
               picture: req.body.picture,
               type: req.body.type,
               class: req.body.class,
-              strenght: req.body.strenght
+              strenght: req.body.strenght,
+              // Liaison entre carte et une compétence déja créer
+              skills:{
+                create : [
+                  {
+                    skill:{
+                      connect:{
+                        id: parseInt(req.body.skillId)
+                      }
+                    }
+                  }
+                ]
+              }
           }
       })
       res.status(200).json({ message: 'Carte bien créer.'})
@@ -39,6 +58,11 @@ router
       const card = await prisma.card.findUnique({
         where: {
           id: parseInt(req.params.id),
+        },
+        include: {
+          skills: {
+            select: { skill: true }
+          }
         },
       })
       res.send(card)
@@ -54,7 +78,18 @@ router
             picture: req.body.picture,
             type: req.body.type,
             class: req.body.class,
-            strenght: req.body.strenght
+            strenght: req.body.strenght,
+            skills:{
+              create : [
+                {
+                  skill:{
+                    connect:{
+                      id: parseInt(req.body.skillId)
+                    }
+                  }
+                }
+              ]
+            }
           }
         })
         res.status(200).json({ message: 'Carte bien modifié.'})
