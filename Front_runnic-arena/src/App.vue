@@ -1,20 +1,10 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router';
 
 </script>
 
 <template>
   <div id="app">
-    <header>
-      <nav>
-        <router-link to="/">Accueil</router-link>
-        <router-link to="/cards">Cards</router-link>
-        <router-link to="/skills">Skills</router-link>
-        <router-link to="/abilities">Abilities</router-link>
-        <router-link to="/colors">Colors</router-link>
-      </nav>
-    </header>
-    <RouterView/>
+    <Menu />
   </div>
 </template>
 
