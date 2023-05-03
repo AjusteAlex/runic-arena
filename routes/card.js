@@ -42,31 +42,34 @@ router
   })
 
   .post(upload.single('picture'), async function (req,res){
+
+    let cardData = {
+      name: req.body.name,
+      picture: req.file.filename,
+      type: req.body.type,
+      class: req.body.class,
+      strenght: req.body.strenght,
+    }
+  
+    if(req.body.skillIds) {
+      cardData.skills = {
+        create: req.body.skillIds.map(skillId =>  
+          ({
+            skill:{ 
+              connect:{id: parseInt(skillId)},
+            }
+          })
+        )
+      }
+    }
+      
+      console.log('Card data :  '+ req.body.skillIds)
     try{  
       const card = await prisma.card.create({
-        data: {
-              name: req.body.name,
-              picture: req.file.filename,
-              type: req.body.type,
-              class: req.body.class,
-              strenght: req.body.strenght,
-              // Liaison entre carte et une compétence déja créer
-              skills:{
-                create : [
-                  {
-                    skill:{
-                      connect:{
-                        id: parseInt(req.body.skillId)
-                      }
-                    }
-                  }
-                ]
-              }
-          }
+        data : cardData
       })
-      console.log(card)
       res.status(200).json({ message: 'Carte bien créer.'})
-    }catch(err){
+      }catch(err){
       res.status(400)
       res.send('Erreur')
     }
