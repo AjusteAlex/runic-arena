@@ -1,28 +1,46 @@
 # runic-arena
+
 Projet Digital campus
 
-## MEMO Commandes 
+## MEMO Commandes
+
 Lancer script projet :
-npm run start => Démarre le server
-npm run migration => Créé un fichier .sql pour la migration courante / exécute la migration dans la base de données.
+npm run start => Démarre le server npm run migration => Créé un fichier .sql pour la migration courante / exécute la
+migration dans la base de données.
+
+Pour installer les nodes modules suivants:   
+Multer : `npm i multer`   
+Fontawesome :
+
+```
+npm i --save @fortawesome/fontawesome-svg-core 
+npm i --save @fortawesome/free-solid-svg-icons 
+npm i --save@fortawesome/free-regular-svg-icons 
+npm i --save @fortawesome/vue-fontawesome@latest-3
+```
 
 ## MEMO GIT
+
 ### Pour créer une branche depuis dev :
+
 - on part sur dev
 - on pull sur dev
 - on crée sa branche depuis dev pour avoir toutes les modifs de dev
 
 ### Pour nommer la branche:
+
 feature|fix|hotfix/numissue-nom_branche_associee
 
 ### Pour nommer les commits
-[#numissue] nomCommit
-Si le commit ferme l'issue on mettra
+
+[#numissue] nomCommit Si le commit ferme l'issue on mettra
 [Close #numissue] nomCommit
 
 ## Brief
 
-Le studio de jeux vidéo indépendant « Goblins » souhaite développer le jeu « Runic Arena ». Il s’agirait d’un jeu par navigateur de type TCG (Trading Card Game) permettant à des joueurs de collectionner des cartes et de s’affronter avec, dans des batailles au tour par tour.
+Le studio de jeux vidéo indépendant « Goblins » souhaite développer le jeu « Runic Arena ». Il s’agirait d’un jeu par
+navigateur de type TCG (Trading Card Game) permettant à des joueurs de collectionner des cartes et de s’affronter avec,
+dans des batailles au tour par tour.
 
 Vous êtes l’équipe en charge de développer :
 
@@ -52,7 +70,8 @@ Elle est définie par :
 
 ### Compétences
 
-L’issue d’un duel est fortement influencée par **le déclenchement de compétences via des capacités actives ou passives**. Voici les compétences qui existent :
+L’issue d’un duel est fortement influencée par **le déclenchement de compétences via des capacités actives ou passives**
+. Voici les compétences qui existent :
 
 **Buff : sur sa propre carte**
 
@@ -88,19 +107,20 @@ L’issue d’un duel est fortement influencée par **le déclenchement de comp�
 ### Capacités (actives et passives)
 
 - **Capacités actives**
-    
-    Pour qu’une capacité active soit déclenchée, il faut que son coût en cube élémentaire soit satisfait.
-    
+
+  Pour qu’une capacité active soit déclenchée, il faut que son coût en cube élémentaire soit satisfait.
+
 - **Capacités passives**
-    
-    Pour qu’une capacité passive soit déclenchée, il faut qu’une condition soit vérifiée. Voici les 4 conditions existantes :
-    
-    | Nom | Description | Exemple |
-    | --- | --- | --- |
-    | Attaque | Si la carte engage le duel, la compétence est déclenchée | Attaque : Rage +20 |
-    | Défend | Si la carte défend sur le duel, la compétence est déclenchée | Défend : Contre attaque 2 |
-    | Avantage | Si la carte adverse est d’un certain élément ou d’une classe spécifique, la compétence est déclenchée | Avantage ☀️ Halo : Vol de vie 10% |
-    | Groupe | Pour chaque carte d’un élément ou d’une classe spécifique dans sa main, la compétence est déclenchée | Groupe Guerrier : Protection + 50 |
+
+  Pour qu’une capacité passive soit déclenchée, il faut qu’une condition soit vérifiée. Voici les 4 conditions
+  existantes :
+
+  | Nom | Description | Exemple |
+              | --- | --- | --- |
+  | Attaque | Si la carte engage le duel, la compétence est déclenchée | Attaque : Rage +20 |
+  | Défend | Si la carte défend sur le duel, la compétence est déclenchée | Défend : Contre attaque 2 |
+  | Avantage | Si la carte adverse est d’un certain élément ou d’une classe spécifique, la compétence est déclenchée | Avantage ☀️ Halo : Vol de vie 10% |
+  | Groupe | Pour chaque carte d’un élément ou d’une classe spécifique dans sa main, la compétence est déclenchée | Groupe Guerrier : Protection + 50 |
 
 ### Gameplay (algorithme de combat)
 
@@ -109,7 +129,8 @@ L’issue d’un duel est fortement influencée par **le déclenchement de comp�
 
 </aside>
 
-Un combat est constitué de 3 à 5 **duels** (3 duels gagnants sont nécessaires) **opposant une carte d’un joueur avec une carte de son adversaire**.
+Un combat est constitué de 3 à 5 **duels** (3 duels gagnants sont nécessaires) **opposant une carte d’un joueur avec une
+carte de son adversaire**.
 
 <aside>
 👉 Si les joueurs remportent un nombre de duels identiques (causé par des égalités), alors le résultat du combat est un match nul.
@@ -118,7 +139,8 @@ Un combat est constitué de 3 à 5 **duels** (3 duels gagnants sont nécessaires
 
 Les decks de chaque joueur sont affichés ouvertement.
 
-À chaque duel, un des deux joueurs annonce avec quelle carte il compte attaquer. Ce joueur est défini aléatoirement au tout premier tour, puis c’est chacun son tour par la suite.
+À chaque duel, un des deux joueurs annonce avec quelle carte il compte attaquer. Ce joueur est défini aléatoirement au
+tout premier tour, puis c’est chacun son tour par la suite.
 
 Voici les phases qui constituent un duel :
 
@@ -130,11 +152,13 @@ Voici les phases qui constituent un duel :
 | 4 | Utilisation du mana | Chaque joueur peut choisir de dépenser sur sa carte autant de points de mana que sa réserve de mana le permet. Un point de mana permet de lancer un cube runique. Un cube runique est un dé composé de 6 faces :
 
 - 3 faces d’attaque (⚔️ Atk) 50% de chance : permet de lancer une attaque équivalente à la puissance de la carte.
-- 3 faces runiques (🔵 Bleu, 🔴 Rouge, 🟡 Jaune) 16.66% de chance chacune : permet de lancer les capacités actives de la carte.
+- 3 faces runiques (🔵 Bleu, 🔴 Rouge, 🟡 Jaune) 16.66% de chance chacune : permet de lancer les capacités actives de la
+  carte.
 
-Les points de mana non dépensées sont conservés au tour suivant. Cela fait partie de la stratégie. |
-| 5 | Compétences actives | La/les compétence(s) active(s) est/sont déclenchée(s) si leur coût en face runique est vérifié. |
-| 6 | Dommages | Les attaques sont lancées et les dégâts totaux sont calculés. La carte qui inflige le plus de dégâts remporte le duel. |
+Les points de mana non dépensées sont conservés au tour suivant. Cela fait partie de la stratégie. | | 5 | Compétences
+actives | La/les compétence(s) active(s) est/sont déclenchée(s) si leur coût en face runique est vérifié. | | 6 |
+Dommages | Les attaques sont lancées et les dégâts totaux sont calculés. La carte qui inflige le plus de dégâts remporte
+le duel. |
 
 ## L’API
 
@@ -145,18 +169,23 @@ L’API comprendra des endpoints de type CRUD commençant par :
 - `/classes` pour gérer les **classes**
 - `/types` pour gérer les **types**
 
-Un endpoint particulier `GET /cards/name-generator` permettra de générer un nom aléatoirement pour vos cartes. Il sera utilisé en cliquant sur un bouton depuis le formulaire de création de carte de l’interface d’administration pour pré-remplir le champ du nom de la carte si l’utilisateur le souhaite.
+Un endpoint particulier `GET /cards/name-generator` permettra de générer un nom aléatoirement pour vos cartes. Il sera
+utilisé en cliquant sur un bouton depuis le formulaire de création de carte de l’interface d’administration pour
+pré-remplir le champ du nom de la carte si l’utilisateur le souhaite.
 
 <aside>
 💡 Je vous encourage à réaliser une modélisation de votre base de données avant l’élaboration de votre Schema Prisma.
 
 </aside>
 
-Lors de l’ajout d’une carte via l’API, l’illustration de la carte devra être uploadée et potentiellement retravaillée sur votre serveur Node.js. Pour cela, je vous recommande les paquets [multer](https://www.npmjs.com/package/multer) et [jimp](https://www.npmjs.com/package/jimp).
+Lors de l’ajout d’une carte via l’API, l’illustration de la carte devra être uploadée et potentiellement retravaillée
+sur votre serveur Node.js. Pour cela, je vous recommande les paquets [multer](https://www.npmjs.com/package/multer)
+et [jimp](https://www.npmjs.com/package/jimp).
 
 ## L’interface d’administration
 
-Cette interface réactive permettra de **gérer les cartes et compétences** en exploitant l’API via des appels `fetch()` par exemple.
+Cette interface réactive permettra de **gérer les cartes et compétences** en exploitant l’API via des appels `fetch()`
+par exemple.
 
 <aside>
 💡 Le module [cors](https://www.npmjs.com/package/cors) vous permettra d’autoriser votre frontend à interagir avec votre backend.
