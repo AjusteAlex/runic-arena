@@ -1,0 +1,60 @@
+<template>
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M18.5 0.194167C10.8509 1.39437 5 8.01391 5 16C5 23.9861 10.8509 30.6056 18.5 31.8058C17.6854 31.9336 16.8505 32 16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C16.8505 0 17.6854 0.066354 18.5 0.194167Z"
+      fill="#FFF1DB"
+    />
+    <circle cx="18.9677" cy="16" r="7.96774" fill="#FFF1DB" />
+    <rect
+      x="18.5483"
+      y="3"
+      width="0.83871"
+      height="4.19355"
+      rx="0.419355"
+      fill="#FFF1DB"
+    />
+    <rect
+      x="18.5483"
+      y="24.8065"
+      width="0.83871"
+      height="4.19355"
+      rx="0.419355"
+      fill="#FFF1DB"
+    />
+    <rect
+      x="27.8636"
+      y="6.51108"
+      width="0.83871"
+      height="4.19355"
+      rx="0.419355"
+      transform="rotate(45 27.8636 6.51108)"
+      fill="#FFF1DB"
+    />
+    <rect
+      x="24.8983"
+      y="22.5237"
+      width="0.83871"
+      height="4.19355"
+      rx="0.419355"
+      transform="rotate(-45 24.8983 22.5237)"
+      fill="#FFF1DB"
+    />
+    <rect
+      x="27.7742"
+      y="16.4193"
+      width="0.83871"
+      height="4.19355"
+      rx="0.419355"
+      transform="rotate(-90 27.7742 16.4193)"
+      fill="#FFF1DB"
+    />
+  </svg>
+</template>
