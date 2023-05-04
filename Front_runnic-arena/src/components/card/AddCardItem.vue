@@ -2,19 +2,29 @@
   <div class="add-card">
     <div class="card-container">
       <div class="card-container-top">
-        <div>
-          <template v-if="nameCard !== ''">
-            {{ typeCard }}
-          </template>
-          <template v-else>
-            <icon-type-light/>
-          </template>
-        </div>
-
-        <div class="polygon">{{ nameCard }}</div>
-        <span class="circle">
+        <div class="class_card">
           {{ classCard }}
-        </span>
+        </div>
+        <div class="card-container-top-section2">
+          <div class="type_card">
+            <template v-if="typeCard === ''">
+              <icon-type-light/>
+            </template>
+            <template v-else-if="typeCard === 'Halo'">
+              <icon-type-halo-light/>
+            </template>
+            <template v-else>
+              <icon-type-chaos-dark/>
+            </template>
+          </div>
+
+          <div class="polygon">
+            <span>{{ nameCard }}</span>
+          </div>
+          <span class="strength_card circle">
+            {{ strengthCard }}
+          </span>
+        </div>
       </div>
     </div>
     <form
@@ -33,9 +43,18 @@
       <p>Nom de la carte : {{ nameCard }}</p>
       <input v-model="nameCard" placeholder="Deòiridh O'Byrnei"/>
       <p>Type de la carte : {{ typeCard }}</p>
-      <input v-model="typeCard" placeholder="Deòiridh O'Byrnei"/>
+      <select v-model="typeCard">
+        <option value="">Choisissez</option>
+        <option>Halo</option>
+        <option>Chaos</option>
+      </select>
       <p>Classe de la carte : {{ classCard }}</p>
-      <input v-model="classCard" placeholder="Deòiridh O'Byrnei"/>
+      <select v-model="classCard">
+        <option value="">Choisissez</option>
+        <option v-for="item in arrayClassCard" :key="item" :value="item">
+          {{ item }}
+        </option>
+      </select>
       <p>Force de la carte : {{ strengthCard }}</p>
       <input v-model="strengthCard" placeholder="Deòiridh O'Byrnei"/>
       <p>Image de la carte : {{ strengthCard }}</p>
@@ -55,15 +74,18 @@
 </template>
 
 <script>
-import IconTypeLight from "../icons/IconTypeLight.vue";
+import IconTypeChaosDark from "../icons/type/IconTypeChaosDark.vue";
+import IconTypeHaloLight from "../icons/type/IconTypeHaloLight.vue";
+import IconTypeLight from "../icons/type/IconTypeLight.vue";
 import SkillCardItem from "./SkillCardItem.vue";
 
 export default {
   data() {
     return {
       nameCard: "",
-      typeCard: "",
-      classCard: "",
+      typeCard: "Halo",
+      classCard: "MAGE",
+      arrayClassCard: ["MAGE", "ASSASSIN", "ARCHER", "SOIGNEUR", "GUERRIER"],
       strengthCard: "",
       errors: [],
       previewImage: null,
@@ -141,7 +163,12 @@ export default {
   },
   mounted() {
   },
-  components: {SkillCardItem, IconTypeLight},
+  components: {
+    SkillCardItem,
+    IconTypeLight,
+    IconTypeHaloLight,
+    IconTypeChaosDark,
+  },
 };
 </script>
 
@@ -177,19 +204,53 @@ export default {
 }
 
 .polygon {
-  width: 7.091rem;
-  height: 1.451rem;
+  width: 12.5rem;
+  overflow: hidden;
+  height: 1%;
+  color: #fff1db;
+  padding-right: 20px;
+  padding-left: 20px;
+  text-align: center;
   background: #1e1e1e;
-  opacity: 0.8;
   clip-path: polygon(13% 0, 90% 0, 100% 50%, 91% 100%, 11% 100%, 0% 50%);
 }
 
 .card-container-top {
+  background: linear-gradient(to right, transparent, #1e1e1e, transparent);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem;
+}
+
+.card-container-top div,
+.card-container-top span {
+  position: relative;
+  z-index: 1;
+}
+
+.card-container-top:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: grey;
+  z-index: 0;
+}
+
+.class_card {
+  color: #fff1db;
+}
+
+.card-container-top-section2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background: #1e1e1e;
-  opacity: 0.4;
+  align-items: center;
 }
 
 .circle {
@@ -200,4 +261,20 @@ export default {
   display: inline-block;
 }
 
+.strength_card {
+  margin-left: 5px;
+  color: #fff1db;
+  text-align: center;
+}
+
+.card-container-name_card {
+  background-color: red;
+  width: 12.5rem;
+  overflow: hidden;
+  height: 1%;
+}
+
+.type_card {
+  margin-right: 5px;
+}
 </style>
