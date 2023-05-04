@@ -152,4 +152,15 @@ router
       res.status(200).json({ message: 'Carte supprimé.'})
     })
 
+    
+    .delete('/:id/cardskill/:skillId', async function (req,res){
+      const skillCard = await prisma.skillsOnCards.deleteMany({
+        where: {
+          cardId: parseInt(req.params.id),
+          skillId: parseInt(req.params.skillId),
+        }
+      })
+      res.status(200).json({ message: 'Relation supprimé.'})
+    })
+
 module.exports = router;
