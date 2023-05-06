@@ -16,7 +16,10 @@ model Card {
   picture  String
   strenght String
   skills   SkillsOnCards[]
-  classe   Classe @relation(fields: [id], references: [id])
+  classe   Classe @relation(fields: [classeid], references: [id])
+  classeid  Int
+  type     Type @relation(fields: [typeid], references: [id])
+  typeid  Int
   // classeId Int
   // colors   ColorsOnCards[]
 }
@@ -57,6 +60,11 @@ model Classe {
   cards    Card[]
 }
 
+model Type {
+  id       Int             @id @default(autoincrement())
+  name     String
+  cards    Card[]
+}
 
 model AbilitiesOnSkills {
   skill     Skill   @relation(fields: [skillId], references: [id], onDelete: Cascade)
