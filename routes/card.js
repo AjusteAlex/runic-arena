@@ -34,7 +34,10 @@ router
       include: {
         skills: {
           select: { skill: true }
-        }
+        },
+        // classes: {
+        //   select: { classe: true }
+        // },
       },
     });
     res.statusCode = 200;
@@ -46,8 +49,6 @@ router
     let cardData = {
       name: req.body.name,
       picture: req.file.filename,
-      type: req.body.type,
-      class: req.body.class,
       strenght: req.body.strenght,
     }
   
@@ -92,8 +93,6 @@ router
       // console.log(req)
       let data = {
           name: req.body.name,
-          type: req.body.type,
-          class: req.body.class,
           strenght: req.body.strenght,
         }
         if(req.file){

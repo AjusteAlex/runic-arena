@@ -5,6 +5,7 @@ var cardsrouter = require("./routes/card");
 var skillsrouter = require("./routes/skill");
 var abilitysrouter = require("./routes/ability");
 var colorsrouter = require("./routes/color");
+var classesrouter = require("./routes/classe");
 
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
@@ -17,5 +18,6 @@ app.use("/card", cardsrouter);
 app.use("/skill", skillsrouter);
 app.use("/ability", abilitysrouter);
 app.use("/color", colorsrouter);
+app.use("/classes", classesrouter);
 
 module.exports = app;
