@@ -1,3 +1,9 @@
+/*
+  Warnings:
+
+  - Added the required column `classeId` to the `Card` table without a default value. This is not possible if the table is not empty.
+
+*/
 -- DropIndex
 DROP INDEX `AbilitiesOnSkills_abilityId_fkey` ON `abilitiesonskills`;
 
@@ -18,6 +24,12 @@ DROP INDEX `ColorsOnSkills_colorId5_fkey` ON `colorsonskills`;
 
 -- DropIndex
 DROP INDEX `SkillsOnCards_cardId_fkey` ON `skillsoncards`;
+
+-- AlterTable
+ALTER TABLE `card` ADD COLUMN `classeId` INTEGER NOT NULL;
+
+-- AddForeignKey
+ALTER TABLE `Card` ADD CONSTRAINT `Card_id_fkey` FOREIGN KEY (`id`) REFERENCES `Classe`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `AbilitiesOnSkills` ADD CONSTRAINT `AbilitiesOnSkills_skillId_fkey` FOREIGN KEY (`skillId`) REFERENCES `Skill`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

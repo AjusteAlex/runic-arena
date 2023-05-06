@@ -14,10 +14,10 @@ model Card {
   id       Int             @id @default(autoincrement())
   name     String
   picture  String
-  type     String
-  class    String
   strenght String
   skills   SkillsOnCards[]
+  classe   Classe @relation(fields: [id], references: [id])
+  // classeId Int
   // colors   ColorsOnCards[]
 }
 
@@ -50,6 +50,13 @@ model Color {
   ColorsOnSkills4 ColorsOnSkills[] @relation("Color4")
   ColorsOnSkills5 ColorsOnSkills[] @relation("Color5")
 }
+
+model Classe {
+  id       Int             @id @default(autoincrement())
+  name     String
+  cards    Card[]
+}
+
 
 model AbilitiesOnSkills {
   skill     Skill   @relation(fields: [skillId], references: [id], onDelete: Cascade)
