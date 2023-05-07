@@ -6,7 +6,7 @@ var skillsrouter = require("./routes/skill");
 var abilitysrouter = require("./routes/ability");
 var colorsrouter = require("./routes/color");
 var classesrouter = require("./routes/classe");
-var typesrouter = require("./routes/classe");
+var typesrouter = require("./routes/type");
 
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
