@@ -8,31 +8,37 @@
         <div class="card-container-top-section2">
           <div class="type_card">
             <template v-if="typeCard === ''">
-              <icon-type-light/>
+              <icon-type-light />
             </template>
             <template v-else-if="typeCard === 'Halo'">
-              <icon-type-halo-light/>
+              <icon-type-halo-light />
             </template>
             <template v-else>
-              <icon-type-chaos-dark/>
+              <icon-type-chaos-dark />
             </template>
           </div>
 
           <div class="polygon">
             <span>{{ nameCard }}</span>
           </div>
-          <span class="strength_card circle">
-            {{ strengthCard }}
-          </span>
+          <div class="strength_card circle">
+            <span>
+              {{ strengthCard }}
+            </span>
+          </div>
         </div>
+      </div>
+      <div class="card-container-bottom">
+        <div class="colors-runic-cube-container"></div>
+        <div class="skill-container"></div>
       </div>
     </div>
     <form
-        id="add-card"
-        action="#"
-        class="add-card-form-container"
-        method="post"
-        @submit.prevent="submitForm"
+      id="add-card"
+      action="#"
+      class="add-card-form-container"
+      method="post"
+      @submit.prevent="submitForm"
     >
       <template v-if="errors.length">
         <b>Merci de corriger les erreur(s) suivante(s):</b>
@@ -41,13 +47,24 @@
         </ul>
       </template>
       <p>Nom de la carte : {{ nameCard }}</p>
-      <input v-model="nameCard" placeholder="Deòiridh O'Byrnei"/>
+      <input v-model="nameCard" placeholder="Deòiridh O'Byrnei" />
       <p>Type de la carte : {{ typeCard }}</p>
-      <select v-model="typeCard">
-        <option value="">Choisissez</option>
-        <option>Halo</option>
-        <option>Chaos</option>
-      </select>
+
+      <template v-if="listTypesCard">
+        <select v-model="typeCard">
+          <option value="">Choisissez</option>
+          <option v-for="type in listTypesCard" :key="type.id" :value="type">
+            {{ type.name }}
+          </option>
+        </select>
+      </template>
+      <template v-else>
+        <select v-model="typeCard">
+          <option value="">Choisissez</option>
+          <option>Halo</option>
+          <option>Chaos</option>
+        </select>
+      </template>
       <p>Classe de la carte : {{ classCard }}</p>
       <select v-model="classCard">
         <option value="">Choisissez</option>
@@ -56,18 +73,18 @@
         </option>
       </select>
       <p>Force de la carte : {{ strengthCard }}</p>
-      <input v-model="strengthCard" placeholder="Deòiridh O'Byrnei"/>
-      <p>Image de la carte : {{ strengthCard }}</p>
+      <input type="number" v-model="strengthCard" placeholder="45" />
+      <p>Image de la carte :</p>
       <input
-          id="file-input"
-          accept="image/*"
-          type="file"
-          @change="uploadImage($event)"
+        id="file-input"
+        accept="image/*"
+        type="file"
+        @change="uploadImage($event)"
       />
-      <SkillCardItem v-for="index in 3" :key="index" :numSkill="index"/>
+      <SkillCardItem v-for="index in 3" :key="index" :numSkill="index" />
 
       <p>
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Submit" />
       </p>
     </form>
   </div>
@@ -88,6 +105,7 @@ export default {
       arrayClassCard: ["MAGE", "ASSASSIN", "ARCHER", "SOIGNEUR", "GUERRIER"],
       strengthCard: "",
       errors: [],
+      listTypesCard: null,
       previewImage: null,
     };
   },
@@ -107,7 +125,7 @@ export default {
       }
       if (!this.strengthCard) {
         this.errors.push(
-            "Veuillez renseigner une valeur de force pour la carte"
+          "Veuillez renseigner une valeur de force pour la carte"
         );
       } else if (isNaN(this.strengthCard)) {
         this.errors.push("La valeur de force doit être un nombre");
@@ -123,6 +141,7 @@ export default {
       // Soumettre le formulaire
       $this.addCard();
     },
+
     addCard() {
       const card = {
         name: this.nameCard,
@@ -138,18 +157,18 @@ export default {
         },
         body: JSON.stringify(card),
       })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((response) => {
-            this.cards = response.allcards;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((response) => {
+          this.cards = response.allcards;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     uploadImage(e) {
       const image = e.target.files[0];
@@ -162,6 +181,20 @@ export default {
     },
   },
   mounted() {
+    fetch("http://localhost:3000/types")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((response) => {
+        this.listSkills = response.allskills;
+      })
+      .catch((error) => {
+        (error) => console.error(error);
+        console.log(error);
+      });
   },
   components: {
     SkillCardItem,
@@ -183,12 +216,22 @@ export default {
   }
 }
 
+@media (max-width: 768px) {
+  .add-card {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .card-container {
   border: 10px solid #fff1db;
   border-radius: 15px;
   width: 20.059rem;
   height: 31.883rem;
   background-color: #ffe2e2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .add-card-form-container {
@@ -206,12 +249,15 @@ export default {
 .polygon {
   width: 12.5rem;
   overflow: hidden;
-  height: 1%;
+  height: auto;
   color: #fff1db;
+  text-align: center;
   padding-right: 20px;
   padding-left: 20px;
-  text-align: center;
   background: #1e1e1e;
+  white-space: initial;
+  word-wrap: break-word;
+
   clip-path: polygon(13% 0, 90% 0, 100% 50%, 91% 100%, 11% 100%, 0% 50%);
 }
 
@@ -258,13 +304,15 @@ export default {
   width: 25px;
   background-color: #1e1e1e;
   border-radius: 50%;
-  display: inline-block;
 }
 
 .strength_card {
   margin-left: 5px;
   color: #fff1db;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-container-name_card {
@@ -276,5 +324,11 @@ export default {
 
 .type_card {
   margin-right: 5px;
+}
+
+.card-container-bottom {
+  width: 100%;
+  height: auto;
+  background-color: red;
 }
 </style>
