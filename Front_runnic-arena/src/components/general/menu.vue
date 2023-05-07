@@ -52,6 +52,7 @@ import { RouterLink, RouterView } from 'vue-router';
     }
     nav img {
         padding-right: 25px;
+        min-width: 40px;
     }
 
     nav a {
