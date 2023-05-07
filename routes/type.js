@@ -6,6 +6,8 @@ const multer = require('multer')
 const upload = multer()
 
 
+// ================= AJOUTER UPLOAD D'ICON ===========================
+
 router
   .route("/")
   .get(async function (req, res) {
