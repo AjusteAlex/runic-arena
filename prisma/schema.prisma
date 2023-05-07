@@ -19,8 +19,7 @@ model Card {
   classe   Classe @relation(fields: [classeid], references: [id])
   classeid  Int
   type     Type @relation(fields: [typeid], references: [id])
-  typeid  Int
-  // classeId Int
+  typeid    Int
   // colors   ColorsOnCards[]
 }
 

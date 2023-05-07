@@ -35,9 +35,9 @@ router
         skills: {
           select: { skill: true }
         },
-        // classes: {
-        //   select: { classe: true }
-        // },
+        type: true,
+        classe: true,
+        
       },
     });
     res.statusCode = 200;
@@ -46,11 +46,12 @@ router
 
   // AJOUTER LIAISON CARTE -> TYPE ET CARTE -> CLASSE
   .post(upload.single('picture'), async function (req,res){
-    console.log(req.body)
     let cardData = {
       name: req.body.name,
       picture: req.file.filename,
       strenght: req.body.strenght,
+      classeid: parseInt(req.body.classe),
+      typeid: parseInt(req.body.type)
     }
     // AJOUTER CONDITION 3 COMPETENCES MAX
     if(req.body.skillIds) {
@@ -64,19 +65,6 @@ router
         )
       }
     }
-      
-    // if(req.body.type) {
-    //   cardData.skills = {
-    //     create: req.body.skillIds.map(skillId =>  
-    //       ({
-    //         skill:{ 
-    //           connect:{id: parseInt(skillId)},
-    //         }
-    //       })
-    //     )
-    //   }
-    // }
-      console.log('Card data :  '+ req.body.skillIds)
     try{  
       const card = await prisma.card.create({
         data : cardData
@@ -96,44 +84,36 @@ router
         include: {
           skills: {
             select: { skill: true }
-          }
+          },
+          type: true,
+          classe: true,
         },
       })
       res.send(card)
     })
     .put('/:id', upload.single('picture'), async function (req,res){
-      // console.log(req)
       let data = {
           name: req.body.name,
           strenght: req.body.strenght,
+          classeid: parseInt(req.body.classe),
+          typeid: parseInt(req.body.type)
         }
         if(req.file){
           data.picture = req.file.filename;
         }
         if (req.body.skillId) {
           try {
-      
-            // const test = await prisma.skillsOnCards.deleteMany({
-            //   where: {
-            //     cardId: parseInt(req.params.id),
-            //     // skillId: parseInt(req.body.skillId)
-            //   }
-            // });
-            // console.log(test)
-            const create = await prisma.skillsOnCards.create({
-              data: {
-                card: {
-                  connect: {
-                    id: parseInt(req.params.id)
-                  }
-                },
-                skill: {
-                  connect: {
-                    id: parseInt(req.body.skillId)
-                  }
-                }
+            if(req.body.skillIds) {
+              cardData.skills = {
+                create: req.body.skillIds.map(skillId =>  
+                  ({
+                    skill:{ 
+                      connect:{id: parseInt(skillId)},
+                    }
+                  })
+                )
               }
-            });
+            }
     
           } catch (err) {
             // Une erreur s'est produite lors de la recherche de la compétence
