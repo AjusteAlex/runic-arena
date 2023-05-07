@@ -33,13 +33,13 @@ import { RouterLink, RouterView } from 'vue-router';
     }
 
     header {
-        background-color: #2c3e50;
+        background-color: #0B004E;
         color: #fff;
         width: 300px;
     }
     .menu-titre{
         min-height: 115px;
-        background-color: #0B004E;
+        padding: 20px 20px 0 20px;
     }
 
     nav {
@@ -47,9 +47,12 @@ import { RouterLink, RouterView } from 'vue-router';
         flex-direction: column;
         gap: 10px;
         margin-top: 20px;
+        background: linear-gradient(180deg, rgba(0,5,122,1) 0%, rgba(99,0,42,1) 100%);
+        min-height: 100%;
     }
     nav img {
         padding-right: 25px;
+        min-width: 40px;
     }
 
     nav a {
