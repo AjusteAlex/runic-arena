@@ -44,14 +44,15 @@ router
     res.end(JSON.stringify({ allcards }));
   })
 
+  // AJOUTER LIAISON CARTE -> TYPE ET CARTE -> CLASSE
   .post(upload.single('picture'), async function (req,res){
-
+    console.log(req.body)
     let cardData = {
       name: req.body.name,
       picture: req.file.filename,
       strenght: req.body.strenght,
     }
-  
+    // AJOUTER CONDITION 3 COMPETENCES MAX
     if(req.body.skillIds) {
       cardData.skills = {
         create: req.body.skillIds.map(skillId =>  
@@ -64,6 +65,17 @@ router
       }
     }
       
+    // if(req.body.type) {
+    //   cardData.skills = {
+    //     create: req.body.skillIds.map(skillId =>  
+    //       ({
+    //         skill:{ 
+    //           connect:{id: parseInt(skillId)},
+    //         }
+    //       })
+    //     )
+    //   }
+    // }
       console.log('Card data :  '+ req.body.skillIds)
     try{  
       const card = await prisma.card.create({
