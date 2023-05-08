@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Page Création type</h1>
-        <form>
+        <form method="post" enctype="multipart/form-data">
             <div>
                 <input
                     type="text"
@@ -9,7 +9,9 @@
                     v-model="name"
                 />
             </div>
-            <button @click="postData">Envoyer</button>
+            <div>
+                <button @click="addCard">Add</button>
+            </div>
         </form>
     </div>
 </template>
@@ -22,29 +24,25 @@
             }
         },
         methods: {
-            postData() {
-                const postData = {
-                    name: this.name,
-                };
-                console.log(postData)
-                fetch( 'http://localhost:3000/types', {
+            async addCard(e) {
+                e.preventDefault()
+
+                let formData = new FormData();
+                formData.append('name', this.name);
+
+                try {
+                await fetch('http://127.0.0.1:3000/types', {
                     method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify( postData )
-                } )
-                // .then( function( response ){
-                //     if( response.status != 201 ){
-                //         this.fetchError = response.status;
-                //     }else{
-                //         response.json().then( function( data ){
-                //             this.fetchResponse = data;
-                //         }.bind(this));
-                //     }
-                // }.bind(this));
+                    body: formData
+                })
+
+                this.message = "Card has been sucessfully created."
+                this.$router.push('/types')
+            } catch (error) {
+                this.message = error.response.data.message
             }
+            }
+            
         }
     }
 </script>
