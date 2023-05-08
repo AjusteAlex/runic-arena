@@ -17,12 +17,15 @@
     <input v-model="stateSkill" type="radio" value="Passive" />Passive
     <div v-if="stateSkill === 'Active'">
       Veuillez choisir les coûts en cube runique pour utiliser la compétence :
-
-      <p>
-        Vous aurez besoin d'utiliser 1 mana par cube runique. 5 manas sont
-        donnés à chaque tour, ainsi vous ne pouvez définir que 5 cubes runiques
-        par compétence.
-      </p>
+      <Popper
+        content="Vous aurez besoin d'utiliser 1 mana par cube runique. 5 manas sont
+      donnés à chaque tour, ainsi vous ne pouvez définir que 5 cubes runiques
+      par compétence."
+        hover
+        placement="right"
+      >
+        <font-awesome-icon :icon="['fas', 'circle-info']" />
+      </Popper>
       <div v-for="index in nbRunicCubes" :key="index">
         <select v-model="runicCubeCost[index - 1]">
           <option value="">Choisissez</option>

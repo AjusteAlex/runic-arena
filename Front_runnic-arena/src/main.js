@@ -1,4 +1,6 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
+import Popper from "vue3-popper";
+
 import { createApp } from "vue";
 
 import {
@@ -16,6 +18,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import App from "./App.vue";
+import "./assets/base.css";
 import Menu from "./components/general/menu.vue";
 import router from "./router";
 
@@ -34,4 +37,5 @@ createApp(App)
   .component("Menu", Menu)
   .use(router)
   .component("font-awesome-icon", FontAwesomeIcon)
+  .component("Popper", Popper)
   .mount("#app");

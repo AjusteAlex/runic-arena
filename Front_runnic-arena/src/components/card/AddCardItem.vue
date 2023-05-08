@@ -32,7 +32,20 @@
         </div>
       </div>
       <div class="card-container-bottom">
-        <div class="colors-runic-cube-container"></div>
+        <div
+          class="colors-runic-cube-container"
+          v-for="ability in 3"
+          :key="ability"
+        >
+          <div
+            class="runic-cubes-per-row"
+            v-for="runicCube in 5"
+            :key="runicCube"
+          >
+            <img :src="runicCubeSvgUrl" alt="Runic cube" />
+            <!-- <object type="image/svg+xml" :data="runicCubeSvgUrl"></object> -->
+          </div>
+        </div>
         <div class="skill-container"></div>
       </div>
     </div>
@@ -110,7 +123,14 @@ export default {
       errors: [],
       listTypesCard: null,
       previewImageUrl: null,
+      runicCubeType: "default",
     };
+  },
+  computed: {
+    runicCubeSvgUrl() {
+      const defaultCubeType = this.runicCubeType; // supposons que vous ayez une variable defaultCubeType dans votre instance VueJS
+      return `/src/assets/icons/runicCubes/runic_cube_${defaultCubeType}.svg`;
+    },
   },
   methods: {
     submitForm() {
@@ -132,7 +152,7 @@ export default {
         );
       } else if (isNaN(this.strengthCard)) {
         this.errors.push("La valeur de force doit être un nombre");
-      } else if (this.form.strengthCard < 0 || this.form.strengthCard > 100) {
+      } else if (this.strengthCard < 0 || this.strengthCard > 100) {
         this.errors.push("La valeur de force doit être entre 0 et 100");
       }
 
@@ -227,11 +247,11 @@ export default {
 }
 
 .card-container {
-  border: 10px solid #fff1db;
+  border: 10px solid var(--beige-light);
   border-radius: 15px;
   width: 20.059rem;
   height: 31.883rem;
-  background-color: #ffe2e2;
+  background-color: var(--blue-dark);
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -257,11 +277,11 @@ export default {
   height: auto;
   padding-top: 0.313rem;
   padding-bottom: 0.313rem;
-  color: #fff1db;
+  color: var(--beige-light);
   text-align: center;
   padding-right: 20px;
   padding-left: 20px;
-  background: #1e1e1e;
+  background: var(--grey-dark);
   white-space: initial;
   word-wrap: break-word;
 
@@ -269,8 +289,8 @@ export default {
 }
 
 .card-container-top {
-  background: linear-gradient(to right, transparent, #1e1e1e, transparent);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: var(--grey-dark-opacity);
+
   border-radius: 5px;
   overflow: hidden;
   display: flex;
@@ -296,7 +316,7 @@ export default {
 }
 
 .class_card {
-  color: #fff1db;
+  color: var(--beige-light);
 }
 
 .card-container-top-section2 {
@@ -310,13 +330,13 @@ export default {
   height: 35px;
   width: 35px;
   margin: 10px;
-  background-color: #1e1e1e;
+  background-color: var(--grey-dark);
   border-radius: 50%;
 }
 
 .strength_card {
   margin-left: 5px;
-  color: #fff1db;
+  color: var(--beige-light);
   text-align: center;
   display: flex;
   justify-content: center;
@@ -335,8 +355,17 @@ export default {
 }
 
 .card-container-bottom {
-  width: 100%;
-  height: auto;
-  background-color: red;
+  width: auto;
+  height: 30%;
+  background-color: var(--grey-dark-opacity);
+}
+
+.colors-runic-cube-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.runic-cubes-per-row {
+  margin: 2px;
 }
 </style>
