@@ -1,8 +1,9 @@
 <template>
-  <div class="abilities" v-if="abilities">
-    <br>
-    <div v-for="ability in abilities" :key="ability.id">
-      {{ability.id}} {{ability.name}} {{ability.description}} {{ability.value}} {{ability.state}} 
+  <div class="types" v-if="types">
+    <a href="/add/type">Créer un type</a>
+    
+    <div v-for="type in types" :key="type.id">
+      {{type.id}}  {{type.name}} 
     </div>
   </div>
 </template>
@@ -14,19 +15,20 @@ export default{
     },
     data() {
         return {
-          abilities:null
+          types:null
         }
     },
     mounted() {
-      fetch('http://localhost:3000/ability')
-        .then(reslponse => {
+      fetch('http://localhost:3000/types')
+        .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
+          console.log('test')
           return response.json();
         })
         .then(response => {
-          this.abilities = response.allabilitys;
+          this.types = response.alltypes;
         })
         .catch(error => {
           error => console.error(error)
@@ -36,7 +38,7 @@ export default{
 </script>
 <style>
 @media (min-width: 1024px) {
-  .abilities {
+  .types {
     min-height: 100vh;
     display: block;
   }
