@@ -28,6 +28,7 @@ router
            name: req.body.name
          }
        })
+       console.log('ici')
       res.status(200).json({ message: 'type bien créer.'})
       }catch(err){
       res.status(400)

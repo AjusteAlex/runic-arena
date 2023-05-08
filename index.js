@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+app.use(cors());
 
 var cardsrouter = require("./routes/card");
 var skillsrouter = require("./routes/skill");

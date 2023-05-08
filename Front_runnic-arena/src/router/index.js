@@ -4,6 +4,8 @@ import CardsView from "../views/CardsView.vue";
 import ColorsView from "../views/ColorsView.vue";
 import HomeView from "../views/HomeView.vue";
 import SkillsView from "../views/SkillsView.vue";
+import TypesView from "../views/types/TypesView.vue";
+import TypesAddView from "../views/types/TypesAddView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +33,16 @@ const router = createRouter({
       path: "/colors",
       name: "colors",
       component: ColorsView,
+    },
+    {
+      path: "/types",
+      name: "types",
+      component: TypesView,
+    },
+    {
+      path: "/add/type",
+      name: "addTypeView",
+      component: TypesAddView,
     },
   ],
 });
