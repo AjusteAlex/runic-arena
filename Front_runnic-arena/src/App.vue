@@ -9,6 +9,10 @@
 </template>
 
 <style scoped>
+#app {
+  background-color: #63002A;
+  color: #FFF1DB;
+}
 header {
   line-height: 1.5;
 }
