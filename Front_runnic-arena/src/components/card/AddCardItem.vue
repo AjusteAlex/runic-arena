@@ -1,6 +1,9 @@
 <template>
   <div class="add-card">
-    <div class="card-container">
+    <div
+      class="card-container"
+      :style="{ backgroundImage: 'url(' + previewImageUrl + ')' }"
+    >
       <div class="card-container-top">
         <div class="class_card">
           {{ classCard }}
@@ -76,7 +79,7 @@
       <input type="number" v-model="strengthCard" placeholder="45" />
       <p>Image de la carte :</p>
       <input
-        id="file-input"
+        id="img-card"
         accept="image/*"
         type="file"
         @change="uploadImage($event)"
@@ -106,7 +109,7 @@ export default {
       strengthCard: "",
       errors: [],
       listTypesCard: null,
-      previewImage: null,
+      previewImageUrl: null,
     };
   },
   methods: {
@@ -175,8 +178,7 @@ export default {
       const reader = new FileReader();
       reader.readAsDataURL(image);
       reader.onload = (e) => {
-        this.previewImage = e.target.result;
-        console.log(this.previewImage);
+        this.previewImageUrl = e.target.result;
       };
     },
   },
@@ -213,6 +215,7 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    margin: 36px;
   }
 }
 
@@ -229,6 +232,8 @@ export default {
   width: 20.059rem;
   height: 31.883rem;
   background-color: #ffe2e2;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -247,9 +252,11 @@ export default {
 }
 
 .polygon {
-  width: 12.5rem;
+  width: 11rem;
   overflow: hidden;
   height: auto;
+  padding-top: 0.313rem;
+  padding-bottom: 0.313rem;
   color: #fff1db;
   text-align: center;
   padding-right: 20px;
@@ -300,8 +307,9 @@ export default {
 }
 
 .circle {
-  height: 25px;
-  width: 25px;
+  height: 35px;
+  width: 35px;
+  margin: 10px;
   background-color: #1e1e1e;
   border-radius: 50%;
 }
@@ -323,7 +331,7 @@ export default {
 }
 
 .type_card {
-  margin-right: 5px;
+  margin: 10px;
 }
 
 .card-container-bottom {

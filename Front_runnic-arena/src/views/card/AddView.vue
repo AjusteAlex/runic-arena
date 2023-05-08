@@ -1,13 +1,12 @@
 <template>
-<div>
-    <AddCardItem/>
-</div>
+  <div>
+    <AddCardItem />
+  </div>
 </template>
 <script>
-import AddCardItem from '@/components/card/AddCardItem.vue';
-export default{
-    components: { AddCardItem }
-}
+import AddCardItem from "@/components/card/AddCardItem.vue";
+export default {
+  components: { AddCardItem },
+};
 </script>
-<style>
-</style>
+<style></style>
