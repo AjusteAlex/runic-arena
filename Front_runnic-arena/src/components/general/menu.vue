@@ -3,7 +3,6 @@ import { RouterLink, RouterView } from 'vue-router';
 
 </script>
 
-
   <template>
     <div id="menu">
       <header>
@@ -12,9 +11,9 @@ import { RouterLink, RouterView } from 'vue-router';
         </div>
         <nav>
           <router-link to="/"><img src="/icons/iconecarte.png" />Accueil</router-link>
-          <router-link to="/cards"><img src="/icons/Iconecompétences.png" />Cards</router-link>
-          <router-link to="/skills"><img src="/icons/Iconetype.png" />Skills</router-link>
-          <router-link to="/abilities"><img src="/icons/Star.png" />Abilities</router-link>
+          <router-link to="/cards"><img src="/icons/Iconecompétences.png" />Carte</router-link>
+          <router-link to="/skills"><img src="/icons/Iconetype.png" />Compétence</router-link>
+          <router-link to="/abilities"><img src="/icons/Star.png" />Capacité</router-link>
           <router-link to="/types"><img src="/icons/Star.png" />Types</router-link>
           <!-- <router-link to="/colors">Colors</router-link> -->
         </nav>
