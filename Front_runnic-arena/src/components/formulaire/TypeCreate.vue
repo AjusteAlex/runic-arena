@@ -14,7 +14,7 @@
                 <input
                     type="text"
                     placeholder="Couleur du type"
-                    v-model="name"
+                    v-model="color"
                 />
             </div>
             <div class="champ">

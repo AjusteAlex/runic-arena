@@ -1,8 +1,8 @@
     <template>
         <div class="container-type">
             <div class="container-link">
-                <a href="/add/type">MENU TYPE</a>
-                <a href="/add/type">MENU TYPE 1</a>
+                <a href="/types">Tous les types</a>
+                <a href="/add/type">Créer un type</a>
             </div>
         </div>
     </template>
