@@ -1,16 +1,30 @@
 <template>
-    <div>
-        <h1>Page Création type</h1>
+    <div class="container">
         <form method="post" enctype="multipart/form-data">
-            <div>
+            <div class="champ">
+                <label>Nom du type</label>
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Nom du type"
                     v-model="name"
                 />
             </div>
+            <div class="champ">
+                <label>Couleur du type</label>
+                <input
+                    type="text"
+                    placeholder="Couleur du type"
+                    v-model="name"
+                />
+            </div>
+            <div class="champ">
+                <label>Icone du type (svg ou npg)</label>
+                <input
+                    type="file"
+                />
+            </div>
             <div>
-                <button @click="addCard">Add</button>
+                <button class="addType" @click="addCard">Créer le type</button>
             </div>
         </form>
     </div>
@@ -46,3 +60,29 @@
         }
     }
 </script>
+
+<style>
+.container {
+    padding: 50px;
+    max-width: 50%;
+}
+    .champ{
+        display: flex;
+        flex-direction: column;
+        padding: 15px 0;
+    }
+    .champ input {
+        margin-top: 5px;
+        background-color: #FFF1DB;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+    }
+    .addType{
+        margin-top: 50px;
+        background-color: #FFF1DB;
+        padding: 10px 50px;
+        border: none;
+        border-radius: 5px;
+    }
+</style>
