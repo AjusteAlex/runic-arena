@@ -61,7 +61,7 @@ table,
 td {
     border: 1px solid #333;
 }
-rgb(255, 255, 255)
+
 thead,
 tfoot {
     background-color: #333;
