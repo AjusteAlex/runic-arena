@@ -10,6 +10,7 @@ import MenuType from '@/components/type/MenuType.vue';
 
 export default{
     components: { TypeItem, MenuType }
+
 }
 </script>
     
@@ -17,4 +18,5 @@ export default{
     .container{
         width: 100%;
     }
+
 </style>

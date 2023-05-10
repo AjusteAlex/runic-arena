@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+
         <MenuType/>
         <TypeCreate/>
     </div>
@@ -11,6 +12,13 @@ import MenuType from '@/components/type/MenuType.vue';
 
 export default{
     components: { TypeCreate, MenuType }
+
 }
 
 </script>
+
+<style>
+    .contaner-type {
+        width: 100%;
+    }
+</style>

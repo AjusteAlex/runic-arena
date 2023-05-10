@@ -14,18 +14,37 @@ router
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-    const allskills = await prisma.skill.findMany({});
+    const allskills = await prisma.skill.findMany({
+      include: {
+        colors: {
+          select: { color: true }
+        },
+      },
+    });
     res.statusCode = 200;
     res.end(JSON.stringify({ allskills }));
   })
 
   .post(upload.none(), async function (req,res){
-    try{  const skill = await prisma.skill.create({
-        data: {
-              attribute: req.body.attribute,
-              name: req.body.name,
-              description: req.body.description
-          }
+    let skillData = {
+      attribute: req.body.attribute,
+      name: req.body.name,
+      description: req.body.description,
+    }
+    if(req.body.colorsIds){
+      skillData.colors = {
+        create: req.body.colorsIds.map(colorId =>  
+          ({
+            color:{ 
+              connect:{id: parseInt(colorId)},
+            }
+          })
+        )
+      }
+    }
+    try{  
+      const skill = await prisma.skill.create({
+        data : skillData
       })
       res.status(200).json({ message: 'Compétence bien crée.'})
     }catch(err){

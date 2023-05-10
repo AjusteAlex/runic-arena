@@ -51,6 +51,7 @@ model Color {
   // ColorsOnSkills3 ColorsOnSkills[] @relation("Color3")
   // ColorsOnSkills4 ColorsOnSkills[] @relation("Color4")
   // ColorsOnSkills5 ColorsOnSkills[] @relation("Color5")
+
 }
 
 model Classe {
@@ -103,7 +104,6 @@ model SkillsOnCards {
 //   @@unique([skillId, colorId4])
 //   @@unique([skillId, colorId5])
 // }
-
 // model ColorsOnCards {
 //   card    Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
 //   cardId  Int
