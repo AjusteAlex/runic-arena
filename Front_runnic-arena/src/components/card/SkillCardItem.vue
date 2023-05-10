@@ -3,7 +3,7 @@
     Compétence {{ numSkill }}
     <p>Nom de la compétence : {{ defaultSkill.name }}</p>
     <template v-if="listSkills">
-      <select v-model="defaultSkill">
+      <select v-model="defaultSkill" @change="updateSkillName">
         <option value="">Choisissez</option>
         <option v-for="skill in listSkills" :key="skill.id" :value="skill">
           {{ skill.name }} : {{ skill.description }}
@@ -13,8 +13,19 @@
     <p>Valeur de frappe de la compétence {{ valueSkill }}</p>
     <input type="number" v-model="valueSkill" placeholder="0" />
     <p>Active ou passive ? {{ stateSkill }}</p>
-    <input v-model="stateSkill" type="radio" value="Active" />Active
-    <input v-model="stateSkill" type="radio" value="Passive" />Passive
+    <input
+      v-model="stateSkill"
+      type="radio"
+      value="Active"
+      @change="updateRunicCube($event.target.value)"
+    />Active
+    <input
+      v-model="stateSkill"
+      type="radio"
+      value="Passive"
+      @change="updateRunicCube($event.target.value)"
+    />Passive
+
     <div v-if="stateSkill === 'Active'">
       Veuillez choisir les coûts en cube runique pour utiliser la compétence :
       <Popper
@@ -26,14 +37,22 @@
       >
         <font-awesome-icon :icon="['fas', 'circle-info']" />
       </Popper>
-      <div v-for="index in nbRunicCubes" :key="index">
-        <select v-model="runicCubeCost[index - 1]">
-          <option value="">Choisissez</option>
-          <option>Bleu</option>
-          <option>Rouge</option>
-          <option>Jaune</option>
-          <option>Aucune</option>
-        </select>
+      <div
+        v-for="[key, value] in Object.entries(runicCubeCost)"
+        :key="key"
+        @change="updateRunicCubeColor"
+      >
+        <template v-if="key !== 'id'">
+          <label for="colorInput">{{ key }} : </label>
+          <input
+            type="number"
+            v-model="runicCubeCost[key]"
+            name="colorInput"
+            placeholder="0"
+            min="0"
+            max="2"
+          />
+        </template>
       </div>
       <span>
         Coût total en cube runique :
@@ -53,14 +72,41 @@ export default {
       nameSkill: "",
       stateSkill: "Active",
       valueSkill: "0",
-      runicCubeCost: ["Aucune", "Aucune", "Aucune", "Aucune", "Aucune"],
+      runicCubeCost: {
+        id: null,
+        blue: 0,
+        red: 0,
+        yellow: 0,
+      },
+      listColors: ["Bleu", "Rouge", "Jaune", "Aucune"],
       nbRunicCubes: 5,
       listSkills: null,
       defaultSkill: "",
+      stateSkillObject: {
+        id: null,
+        state: "",
+      },
     };
   },
   props: {
     numSkill: Number,
+  },
+  methods: {
+    updateRunicCube(stateValue) {
+      this.stateSkillObject.id = this.numSkill;
+      this.stateSkillObject.state = stateValue;
+
+      this.$emit("stateAbility", this.stateSkillObject, this.numSkill);
+    },
+    updateSkillName() {
+      this.defaultSkill.numSkill = this.numSkill;
+
+      this.$emit("skillNameChoose", this.defaultSkill, this.numSkill);
+    },
+    updateRunicCubeColor() {
+      this.runicCubeCost.id = this.numSkill;
+      this.$emit("runicCubeColor", this.runicCubeCost, this.numSkill);
+    },
   },
   computed: {
     dynamicModel() {

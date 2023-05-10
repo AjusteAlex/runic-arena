@@ -31,22 +31,46 @@
           </div>
         </div>
       </div>
-      <div class="card-container-bottom">
-        <div
-          class="colors-runic-cube-container"
-          v-for="ability in 3"
-          :key="ability"
-        >
-          <div
-            class="runic-cubes-per-row"
-            v-for="runicCube in 5"
-            :key="runicCube"
-          >
-            <img :src="runicCubeSvgUrl" alt="Runic cube" />
-            <!-- <object type="image/svg+xml" :data="runicCubeSvgUrl"></object> -->
+      <div class="card-container-bottom" v-if="costColors">
+        <div class="runic-cubes-per-row">
+          <div>
+            <div v-for="[key, value] in Object.entries(costColors)" :key="key">
+              <template
+                v-for="(index, eachColor) in costColors[key]"
+                :key="index"
+              >
+                <template v-for="i in index" :key="i">
+                  <template v-if="eachColor !== 'id'">
+                    <img
+                      :src="runicCubeSvgUrl(eachColor)"
+                      alt="Runic cube"
+                      v-if="value"
+                    />
+                  </template>
+                </template>
+              </template>
+            </div>
+            <div>
+              <div v-for="[key, value] in Object.entries(stateList)" :key="key">
+                <template v-if="value.state == 'Passive'">
+                  <div>
+                    <img
+                      src="/src/assets/icons/runicCubes/passive_skill.svg"
+                      alt="Runic cube"
+                    />
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+          <div class="skill-container">
+            <div v-for="[key, value] in Object.entries(skillList)" :key="key">
+              <p class="small-text">
+                {{ value.name }} : {{ value.description }}
+              </p>
+            </div>
           </div>
         </div>
-        <div class="skill-container"></div>
       </div>
     </div>
     <form
@@ -97,7 +121,23 @@
         type="file"
         @change="uploadImage($event)"
       />
-      <SkillCardItem v-for="index in 3" :key="index" :numSkill="index" />
+      <SkillCardItem
+        v-for="index in nbAbilities"
+        :key="index"
+        :numSkill="index"
+        @runicCubeColor="
+          (runicCubeCost, numSkill) =>
+            updateRunicCubeColor(runicCubeCost, numSkill)
+        "
+        @skillNameChoose="
+          (defaultSkill, numSkill) =>
+            updateSkillNameDescription(defaultSkill, numSkill)
+        "
+        @stateAbility="
+          (stateSkillObject, numSkill) =>
+            updateRunicCubePassive(stateSkillObject, numSkill)
+        "
+      />
 
       <p>
         <input type="submit" value="Submit" />
@@ -121,18 +161,74 @@ export default {
       arrayClassCard: ["MAGE", "ASSASSIN", "ARCHER", "SOIGNEUR", "GUERRIER"],
       strengthCard: "",
       errors: [],
+      costColors: [],
+      nbAbilities: 3,
       listTypesCard: null,
       previewImageUrl: null,
       runicCubeType: "default",
+      runicColorList: null,
+      trouve: false,
+      skillList: [],
+      stateList: [],
     };
   },
-  computed: {
-    runicCubeSvgUrl() {
-      const defaultCubeType = this.runicCubeType; // supposons que vous ayez une variable defaultCubeType dans votre instance VueJS
-      return `/src/assets/icons/runicCubes/runic_cube_${defaultCubeType}.svg`;
-    },
-  },
+  computed: {},
   methods: {
+    runicCubeSvgUrl(color) {
+      // return `/src/assets/icons/runicCubes/runic_cube_default.svg`;
+
+      return `/src/assets/icons/runicCubes/runic_cube_${color}.svg`;
+    },
+    updateRunicCubePassive(stateSkillObject, numSkill) {
+      if (this.stateList.length > 0) {
+        Object.keys(this.stateList).forEach((k, i) => {
+          if (this.stateList[k].id === numSkill) {
+            this.stateList[k] = stateSkillObject;
+            this.trouve = true;
+          }
+        });
+        if (this.trouve == false) {
+          this.stateList.push(stateSkillObject);
+        }
+        this.trouve = false;
+      } else {
+        this.stateList.push(stateSkillObject);
+      }
+    },
+    updateSkillNameDescription(defaultSkill, numSkill) {
+      if (this.skillList.length > 0) {
+        console.log(numSkill);
+        Object.keys(this.skillList).forEach((k, i) => {
+          if (this.skillList[k].numSkill === numSkill) {
+            this.skillList[k] = defaultSkill;
+            this.trouve = true;
+          }
+        });
+        if (this.trouve == false) {
+          this.skillList.push(defaultSkill);
+        }
+        this.trouve = false;
+      } else {
+        this.skillList.push(defaultSkill);
+      }
+    },
+    updateRunicCubeColor(newValue, numSkill) {
+      if (this.costColors.length > 0) {
+        console.log(numSkill);
+        Object.keys(this.costColors).forEach((k, i) => {
+          if (this.costColors[k].id === numSkill) {
+            this.costColors[k] = newValue;
+            this.trouve = true;
+          }
+        });
+        if (this.trouve == false) {
+          this.costColors.push(newValue);
+        }
+        this.trouve = false;
+      } else {
+        this.costColors.push(newValue);
+      }
+    },
     submitForm() {
       // Valider le formulaire en utilisant vos règles existantes
       this.errors = []; // Effacer toutes les erreurs existantes
@@ -355,6 +451,7 @@ export default {
 }
 
 .card-container-bottom {
+  display: flex;
   width: auto;
   height: 30%;
   background-color: var(--grey-dark-opacity);
@@ -366,6 +463,25 @@ export default {
 }
 
 .runic-cubes-per-row {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  align-items: normal;
   margin: 2px;
+}
+
+.runic-cubes-per-row > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 0.5rem;
+}
+.runic-cubes-per-row > div > div {
+  display: flex;
+  flex-direction: row;
+}
+
+.skill-container > p {
+  text-align: right;
 }
 </style>

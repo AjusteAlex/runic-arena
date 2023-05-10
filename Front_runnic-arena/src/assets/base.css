@@ -37,3 +37,28 @@
 body {
   font-family: "Lato", sans-serif;
 }
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 17px;
+}
+
+.small-text {
+  font-size: 11px;
+}
+
+.bold-text {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.normal-text {
+  font-size: 12px;
+}
+.zoom-text {
+  font-size: 14px;
+  font-weight: bold;
+}
