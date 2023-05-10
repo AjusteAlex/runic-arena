@@ -39,11 +39,11 @@ router
               connect:{id: parseInt(colorId)},
             }
           })
-          )
-        }
-        console.log(skillData)
+        )
+      }
     }
-    try{  const skill = await prisma.skill.create({
+    try{  
+      const skill = await prisma.skill.create({
         data : skillData
       })
       res.status(200).json({ message: 'Compétence bien créer.'})
