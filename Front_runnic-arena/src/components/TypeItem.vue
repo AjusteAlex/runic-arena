@@ -1,7 +1,5 @@
 <template>
-  <div class="types" v-if="types">
-    <a href="/add/type">Créer un type</a>
-    
+  <div class="types">    
     <div v-for="type in types" :key="type.id">
       {{type.id}}  {{type.name}} 
     </div>

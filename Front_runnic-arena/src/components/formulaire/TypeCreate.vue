@@ -8,9 +8,14 @@
                     placeholder="Name"
                     v-model="name"
                 />
+                <input
+                    type="text"
+                    placeholder="Couleur du type"
+                    v-model="colortype"
+                />
             </div>
             <div>
-                <button @click="addCard">Add</button>
+                <button @click="addType">Add</button>
             </div>
         </form>
     </div>
@@ -21,22 +26,23 @@
         data() {
             return {
                 name: '',
+                colortype: '',
             }
         },
         methods: {
-            async addCard(e) {
+            async addType(e) {
                 e.preventDefault()
 
                 let formData = new FormData();
                 formData.append('name', this.name);
-
+                formData.append('colortype', this.colortype);
                 try {
                 await fetch('http://127.0.0.1:3000/types', {
                     method: 'POST',
                     body: formData
                 })
 
-                this.message = "Card has been sucessfully created."
+                this.message = "Type has been sucessfully created."
                 this.$router.push('/types')
             } catch (error) {
                 this.message = error.response.data.message

@@ -1,14 +1,16 @@
 <template>
     <div>
-        <h1>Vue de la création d'un type</h1>
+        <MenuType/>
         <TypeCreate/>
     </div>
 </template>
 
 <script>
-import TypeCreate from '../../components/formulaire/TypeCreate.vue';
+import TypeCreate from '@/components/formulaire/TypeCreate.vue';
+import MenuType from '@/components/type/MenuType.vue';
+
 export default{
-    components: { TypeCreate }
+    components: { TypeCreate, MenuType }
 }
 
 </script>

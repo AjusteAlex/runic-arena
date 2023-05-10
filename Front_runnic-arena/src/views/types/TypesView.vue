@@ -1,12 +1,15 @@
 <template>
-<div>
-    <TypeItem/>
-</div>
+    <div>
+        <MenuType/>
+        <TypeItem/>
+    </div>
 </template>
 <script>
-import TypeItem from '../../components/TypeItem.vue';
+import TypeItem from '@/components/TypeItem.vue';
+import MenuType from '@/components/type/MenuType.vue';
+
 export default{
-    components: { TypeItem }
+    components: { TypeItem, MenuType }
 }
 </script>
 
