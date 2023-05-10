@@ -1,12 +1,12 @@
 <template>
     <div>
-        <h1> Mise a jour Type</h1>
+        <h1> Mise a jour de la compétence</h1>
         <form class="form" @submit.prevent enctype="multipart/form-data">
             <div class="form-section">
-                <label>Nom du type</label>
+                <label>Nom de la compétence</label>
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Nom"
                     v-model="name"
                 />
             </div>
@@ -42,14 +42,14 @@
                 }
                 console.log(typeData)
                
-                await fetch(`http://localhost:3000/types/${id}`, {
+                await fetch(`http://localhost:3000/skill/${id}`, {
                     method: "put",
                     headers: {
                     "Content-Type": "application/json"
                     },
                     body: JSON.stringify(typeData),
                 } )
-                this.$router.push('/types')
+                this.$router.push('/skills')
             }
         }
     }

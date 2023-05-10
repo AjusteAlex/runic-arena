@@ -33,6 +33,15 @@ export default{
         .catch(error => {
           error => console.error(error)
         });
+    },
+    methods: {
+      async supprimer(skill){
+        const id = skill.id
+        await fetch(`http://localhost:3000/skill/${id}`, {
+          method: "delete"
+        })  
+        window.location.reload()  
+      }
     }
 }
 </script>

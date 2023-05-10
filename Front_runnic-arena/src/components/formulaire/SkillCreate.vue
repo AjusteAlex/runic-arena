@@ -1,14 +1,14 @@
 <template>
 
     <div>
-        <h1> Création type</h1>
+        <h1> Création d'une compétence</h1>
         <form class="form" method="post" enctype="multipart/form-data">
             <div class="form-section">
 
-                <label>Nom du type</label>
+                <label>Nom de la compétence</label>
                 <input
                     type="text"
-                    placeholder="Nom du type"
+                    placeholder="Nom de la compétence"
                     v-model="name"
                 />
             </div>
@@ -24,7 +24,7 @@
                 />
 
             </div>
-            <button @click="addType">Créer le type</button>
+            <button @click="addSkyll">Créer le type</button>
           
         </form>
     </div>
@@ -39,20 +39,20 @@
             }
         },
         methods: {
-            async addType(e) {
+            async addSkyll(e) {
                 e.preventDefault()
 
                 let formData = new FormData();
                 formData.append('name', this.name);
                 formData.append('colortype', this.colortype);
                 try {
-                await fetch('http://127.0.0.1:3000/types', {
+                await fetch('http://127.0.0.1:3000/skills', {
                     method: 'POST',
                     body: formData
                 })
 
-                this.message = "Type has been sucessfully created."
-                this.$router.push('/types')
+                this.message = "Skill has been sucessfully created."
+                this.$router.push('/skills')
                 } catch (error) {
                     this.message = error.response.data.message
                 }

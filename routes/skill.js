@@ -15,11 +15,11 @@ router
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
     const allskills = await prisma.skill.findMany({
-      include: {
-        colors: {
-          select: { color: true }
-        },
-      },
+      // include: {
+      //   colors: {
+      //     select: { color: true }
+      //   },
+      // },
     });
     res.statusCode = 200;
     res.end(JSON.stringify({ allskills }));
@@ -31,17 +31,17 @@ router
       name: req.body.name,
       description: req.body.description,
     }
-    if(req.body.colorsIds){
-      skillData.colors = {
-        create: req.body.colorsIds.map(colorId =>  
-          ({
-            color:{ 
-              connect:{id: parseInt(colorId)},
-            }
-          })
-        )
-      }
-    }
+    // if(req.body.colorsIds){
+    //   skillData.colors = {
+    //     create: req.body.colorsIds.map(colorId =>  
+    //       ({
+    //         color:{ 
+    //           connect:{id: parseInt(colorId)},
+    //         }
+    //       })
+    //     )
+    //   }
+    // }
     try{  
       const skill = await prisma.skill.create({
         data : skillData
