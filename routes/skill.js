@@ -15,11 +15,11 @@ router
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
     const allskills = await prisma.skill.findMany({
-      include: {
-        colors: {
-          select: { color: true }
-        },
-      },
+      // include: {
+      //   colors: {
+      //     select: { color: true }
+      //   },
+      // },
     });
     res.statusCode = 200;
     res.end(JSON.stringify({ allskills }));
