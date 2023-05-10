@@ -14,9 +14,9 @@ router
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-    const allabilitys = await prisma.ability.findMany({});
+    const allabilities = await prisma.ability.findMany({});
     res.statusCode = 200;
-    res.end(JSON.stringify({ allabilitys }));
+    res.end(JSON.stringify({ allabilities }));
   })
 
   .post(upload.none(), async function (req,res){
@@ -29,7 +29,7 @@ router
             state: req.body.state
         }
       })
-      res.status(200).json({ message: 'Capacité bien créer.'})
+      res.status(200).json({ message: 'Capacité bien crée.'})
     }catch(err){
       res.status(400)
       res.send('Erreur')
@@ -57,7 +57,7 @@ router
             state: req.body.state
           }
         })
-        res.status(200).json({ message: 'Capacité bien modifié.'})
+        res.status(200).json({ message: 'Capacité bien modifiée.'})
       }
       catch(err){
         res.status(400)
@@ -71,7 +71,7 @@ router
           id: parseInt(req.params.id),
         }
       })
-      res.status(200).json({ message: 'Capacité supprimé.'})
+      res.status(200).json({ message: 'Capacité supprimée.'})
     })
 
 module.exports = router;

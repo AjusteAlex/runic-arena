@@ -27,7 +27,7 @@ router
               description: req.body.description
           }
       })
-      res.status(200).json({ message: 'Compétence bien créer.'})
+      res.status(200).json({ message: 'Compétence bien crée.'})
     }catch(err){
       res.status(400)
       res.send('Erreur')
@@ -54,7 +54,7 @@ router
             description: req.body.description
           }
         })
-        res.status(200).json({ message: 'Compétence bien modifié.'})
+        res.status(200).json({ message: 'Compétence bien modifiée.'})
       }
       catch(err){
         res.status(400)
@@ -68,7 +68,7 @@ router
           id: parseInt(req.params.id),
         }
       })
-      res.status(200).json({ message: 'Compétence supprimé.'})
+      res.status(200).json({ message: 'Compétence supprimée.'})
     })
 
 module.exports = router;

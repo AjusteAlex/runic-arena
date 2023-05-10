@@ -26,7 +26,7 @@ router
             color: req.body.color,
         }
       })
-      res.status(200).json({ message: 'Couleur bien créer.'})
+      res.status(200).json({ message: 'Couleur bien crée.'})
     }catch(err){
       res.status(400)
       res.send('Erreur')
@@ -51,7 +51,7 @@ router
             color: req.body.color,
           }
         })
-        res.status(200).json({ message: 'Couleur bien modifié.'})
+        res.status(200).json({ message: 'Couleur bien modifiée.'})
       }
       catch(err){
         res.status(400)
@@ -65,7 +65,7 @@ router
           id: parseInt(req.params.id),
         }
       })
-      res.status(200).json({ message: 'Couleur supprimé.'})
+      res.status(200).json({ message: 'Couleur supprimée.'})
     })
 
 module.exports = router;

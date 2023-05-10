@@ -29,7 +29,7 @@ router
          }
        })
        console.log('ici')
-      res.status(200).json({ message: 'type bien créer.'})
+      res.status(200).json({ message: 'type bien crée.'})
       }catch(err){
       res.status(400)
       res.send(err)
@@ -46,6 +46,7 @@ router
       res.send(type)
     })
     .put('/:id', upload.none(), async function (req,res){
+      console.log(req.body)
       try{  
         const type = await prisma.type.update({
           where: {

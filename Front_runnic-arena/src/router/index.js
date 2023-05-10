@@ -6,6 +6,7 @@ import HomeView from "../views/HomeView.vue";
 import SkillsView from "../views/SkillsView.vue";
 import TypesView from "../views/types/TypesView.vue";
 import TypesAddView from "../views/types/TypesAddView.vue";
+import TypesUpdateView from "../views/types/TypesUpdateView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +44,11 @@ const router = createRouter({
       path: "/add/type",
       name: "addTypeView",
       component: TypesAddView,
+    }, 
+    {
+      path: "/type/update/:id",
+      name: "updateTypeView",
+      component: TypesUpdateView,
     },
   ],
 });

@@ -69,7 +69,7 @@ router
       const card = await prisma.card.create({
         data : cardData
       })
-      res.status(200).json({ message: 'Carte bien créer.'})
+      res.status(200).json({ message: 'Carte bien crée.'})
       }catch(err){
       res.status(400)
       res.send('Erreur')
@@ -128,7 +128,7 @@ router
             },
             data
           })
-          res.status(200).json({ message: 'Carte bien modifié.'})
+          res.status(200).json({ message: 'Carte bien modifiée.'})
         }
         catch(err){
         res.send(err);
@@ -140,7 +140,7 @@ router
           id: parseInt(req.params.id),
         }
       })
-      res.status(200).json({ message: 'Carte supprimé.'})
+      res.status(200).json({ message: 'Carte supprimée.'})
     })
 
     
@@ -151,7 +151,7 @@ router
           skillId: parseInt(req.params.skillId),
         }
       })
-      res.status(200).json({ message: 'Relation supprimé.'})
+      res.status(200).json({ message: 'Relation supprimée.'})
     })
 
 module.exports = router;
