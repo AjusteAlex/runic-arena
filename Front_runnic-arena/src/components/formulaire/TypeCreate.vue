@@ -1,22 +1,24 @@
 <template>
     <div>
-        <h1>Page Création type</h1>
-        <form method="post" enctype="multipart/form-data">
-            <div>
+        <form class="form" method="post" enctype="multipart/form-data">
+            <div class="form-section">
+                <label>Nom du type</label>
                 <input
                     type="text"
                     placeholder="Name"
                     v-model="name"
                 />
+            </div>
+            <div class="form-section">
+                <label>Couleur du type</label>
                 <input
                     type="text"
                     placeholder="Couleur du type"
                     v-model="colortype"
                 />
             </div>
-            <div>
-                <button @click="addType">Add</button>
-            </div>
+            <button @click="addType">Créer le type</button>
+          
         </form>
     </div>
 </template>
@@ -52,3 +54,25 @@
         }
     }
 </script>
+
+<style>
+    
+    .form-section{ 
+        display: flex;
+        flex-direction: column;
+        max-width: 40%;
+        margin: 20px 0;
+    }
+    .form-section input{
+        background-color: #FFF1DB;
+        padding: 5px 15px;
+        border-radius: 5px;
+        border: none;
+    }
+    .form button {
+        background-color: #FFF1DB;
+        padding: 5px 15px;
+        border-radius: 5px;
+        border: none;
+        }
+</style>

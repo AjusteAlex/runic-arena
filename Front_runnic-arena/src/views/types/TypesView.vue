@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <MenuType/>
         <TypeItem/>
     </div>
@@ -12,6 +12,9 @@ export default{
     components: { TypeItem, MenuType }
 }
 </script>
-
+    
 <style>
+    .container{
+        width: 100%;
+    }
 </style>
