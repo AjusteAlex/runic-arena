@@ -1,12 +1,10 @@
 <template>
-  <div class="types" v-if="types">
-    <a href="/add/type">Créer un type</a>
-    
+  <div class="types">  
     <div v-for="type in types" :key="type.id">
-      {{type.id}}  {{type.name}} 
+      {{type.id}}  {{type.name}} <a v-bind:href="'/type/update/'+ type.id">Mettre a jour</a> <button @click="supprimer(type)">Supprimer</button>
     </div>
   </div>
-</template>
+</template> 
 
 <script>
 export default{
@@ -15,7 +13,9 @@ export default{
     },
     data() {
         return {
-          types:null
+          types:null,
+          selectedType: {}
+
         }
     },
     mounted() {
@@ -24,7 +24,6 @@ export default{
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
-          console.log('test')
           return response.json();
         })
         .then(response => {
@@ -33,6 +32,15 @@ export default{
         .catch(error => {
           error => console.error(error)
         });
+    },
+    methods: {
+      async supprimer(type){
+        const id = type.id
+        await fetch(`http://localhost:3000/types/${id}`, {
+          method: "delete"
+        })  
+        window.location.reload()  
+      }
     }
 }
 </script>

@@ -1,15 +1,18 @@
 <template>
-    <div class="container-type">
+    <div class="container">
+
         <MenuType/>
         <TypeCreate/>
     </div>
 </template>
 
 <script>
-import MenuType from '../../components/Type/MenuType.vue'
-import TypeCreate from '../../components/formulaire/TypeCreate.vue';
+import TypeCreate from '@/components/formulaire/TypeCreate.vue';
+import MenuType from '@/components/type/MenuType.vue';
+
 export default{
-    components: { MenuType, TypeCreate}
+    components: { TypeCreate, MenuType }
+
 }
 
 </script>

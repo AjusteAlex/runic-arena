@@ -1,20 +1,22 @@
 <template>
-<div class="typeview">
-    <MenuType/>
-    <TypeItem/>
-</div>
+    <div class="container">
+        <MenuType/>
+        <TypeItem/>
+    </div>
 </template>
 <script>
-import TypeItem from '../../components/TypeItem.vue';
-import MenuType from '../../components/Type/MenuType.vue'
+import TypeItem from '@/components/TypeItem.vue';
+import MenuType from '@/components/type/MenuType.vue';
+
 export default{
-    components: { TypeItem },
-    components: { MenuType }
+    components: { TypeItem, MenuType }
+
 }
 </script>
-
+    
 <style>
-.typeview {
-    width: 100%;
-}
+    .container{
+        width: 100%;
+    }
+
 </style>

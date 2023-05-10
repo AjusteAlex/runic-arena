@@ -26,7 +26,7 @@ router
            name: req.body.name
          }
        })
-      res.status(200).json({ message: 'Classe bien créer.'})
+      res.status(200).json({ message: 'Classe bien crée.'})
       }catch(err){
       res.status(400)
       res.send(err)
@@ -52,7 +52,7 @@ router
             name: req.body.name
           }
         })
-        res.status(200).json({ message: 'Classe bien modifié.'})
+        res.status(200).json({ message: 'Classe bien modifiée.'})
       }
       catch(err){
         res.send(err);
@@ -64,7 +64,7 @@ router
           id: parseInt(req.params.id),
         }
       })
-      res.status(200).json({ message: 'Classe supprimé.'})
+      res.status(200).json({ message: 'Classe supprimée.'})
     })
 
 module.exports = router;

@@ -1,30 +1,24 @@
 <template>
-
     <div>
-        <h1> Création type</h1>
-        <form class="form" method="post" enctype="multipart/form-data">
+        <h1> Mise a jour Type</h1>
+        <form class="form" @submit.prevent enctype="multipart/form-data">
             <div class="form-section">
-
                 <label>Nom du type</label>
                 <input
                     type="text"
-                    placeholder="Nom du type"
+                    placeholder="Name"
                     v-model="name"
                 />
             </div>
-
             <div class="form-section">
-
                 <label>Couleur du type</label>
                 <input
                     type="text"
                     placeholder="Couleur du type"
-
                     v-model="colortype"
                 />
-
             </div>
-            <button @click="addType">Créer le type</button>
+            <button @click="updateType">Modifier le type</button>
           
         </form>
     </div>
@@ -38,32 +32,30 @@
                 colortype: '',
             }
         },
-        methods: {
-            async addType(e) {
-                e.preventDefault()
-
-                let formData = new FormData();
-                formData.append('name', this.name);
-                formData.append('colortype', this.colortype);
-                try {
-                await fetch('http://127.0.0.1:3000/types', {
-                    method: 'POST',
-                    body: formData
-                })
-
-                this.message = "Type has been sucessfully created."
-                this.$router.push('/types')
-                } catch (error) {
-                    this.message = error.response.data.message
+        methods: {  
+            async updateType(){
+                console.log('ici')
+                const id = this.$route.params.id
+                const typeData = {
+                    name: this.name,
+                    colortype: this.colortype,
                 }
+                console.log(typeData)
+               
+                await fetch(`http://localhost:3000/types/${id}`, {
+                    method: "put",
+                    headers: {
+                    "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(typeData),
+                } )
+                this.$router.push('/types')
             }
-            
         }
     }
 </script>
 
 <style>
-
     
     .form-section{ 
         display: flex;
@@ -83,5 +75,4 @@
         border-radius: 5px;
         border: none;
         }
-
 </style>
