@@ -3,10 +3,13 @@ import AbilitiesView from "../views/AbilitiesView.vue";
 import CardsView from "../views/CardsView.vue";
 import ColorsView from "../views/ColorsView.vue";
 import HomeView from "../views/HomeView.vue";
-import SkillsView from "../views/SkillsView.vue";
 import TypesView from "../views/types/TypesView.vue";
 import TypesAddView from "../views/types/TypesAddView.vue";
 import TypesUpdateView from "../views/types/TypesUpdateView.vue";
+
+import SkillsView from "../views/skills/SkillsView.vue";
+import SkillsAddView from "../views/skills/SkillsAddView.vue";
+import SkillsUpdateView from "../views/skills/SkillsUpdateView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +52,22 @@ const router = createRouter({
       path: "/type/update/:id",
       name: "updateTypeView",
       component: TypesUpdateView,
+    },
+
+    {
+      path: "/skills",
+      name: "tskillsypes",
+      component: SkillsView,
+    },
+    {
+      path: "/add/skill",
+      name: "addSkillView",
+      component: SkillsAddView,
+    }, 
+    {
+      path: "/skill/update/:id",
+      name: "updateSkillView",
+      component: SkillsUpdateView,
     },
   ],
 });

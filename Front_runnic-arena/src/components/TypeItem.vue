@@ -1,7 +1,9 @@
 <template>
   <div class="types">  
     <div v-for="type in types" :key="type.id">
-      {{type.id}}  {{type.name}} <a v-bind:href="'/type/update/'+ type.id">Mettre a jour</a> <button @click="supprimer(type)">Supprimer</button>
+      {{type.id}}  {{type.name}} 
+      <a v-bind:href="'/type/update/'+ type.id">Mettre a jour</a> 
+      <button @click="supprimer(type)">Supprimer</button>
     </div>
   </div>
 </template> 

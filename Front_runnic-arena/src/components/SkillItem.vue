@@ -3,6 +3,8 @@
     <br>
     <div v-for="skill in skills" :key="skill.id">
       {{skill.id}} {{skill.attribute}} {{skill.name}} {{skill.description}} 
+      <a v-bind:href="'/skill/update/'+ skill.id">Mettre a jour</a> 
+      <button @click="supprimer(skill)">Supprimer</button>
     </div>
   </div>
 </template>
