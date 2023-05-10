@@ -45,12 +45,7 @@ model Ability {
 model Color {
   id              Int              @id @default(autoincrement())
   color           String
-  // cards           ColorsOnCards[]
-  ColorsOnSkills1 ColorsOnSkills[] @relation("Color1")
-  ColorsOnSkills2 ColorsOnSkills[] @relation("Color2")
-  ColorsOnSkills3 ColorsOnSkills[] @relation("Color3")
-  ColorsOnSkills4 ColorsOnSkills[] @relation("Color4")
-  ColorsOnSkills5 ColorsOnSkills[] @relation("Color5")
+  skills          ColorsOnSkills[]
 }
 
 model Classe {
@@ -84,24 +79,12 @@ model SkillsOnCards {
 }
 
 model ColorsOnSkills {
-  skill    Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  skill    Skill @relation(fields: [skillId], references: [id])
   skillId  Int
-  color1   Color @relation("Color1", fields: [colorId1], references: [id], onDelete: Cascade)
-  colorId1 Int
-  color2   Color @relation("Color2", fields: [colorId2], references: [id], onDelete: Cascade)
-  colorId2 Int
-  color3   Color @relation("Color3", fields: [colorId3], references: [id], onDelete: Cascade)
-  colorId3 Int
-  color4   Color @relation("Color4", fields: [colorId4], references: [id], onDelete: Cascade)
-  colorId4 Int
-  color5   Color @relation("Color5", fields: [colorId5], references: [id], onDelete: Cascade)
-  colorId5 Int
+  color   Color @relation(fields: [colorId], references: [id])
+  colorId Int
 
-  @@unique([skillId, colorId1])
-  @@unique([skillId, colorId2])
-  @@unique([skillId, colorId3])
-  @@unique([skillId, colorId4])
-  @@unique([skillId, colorId5])
+  @@unique([skillId, colorId])
 }
 
 // model ColorsOnCards {
