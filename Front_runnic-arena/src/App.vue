@@ -7,6 +7,9 @@
 </template>
 
 <style scoped>
+body{
+  background-color: red;
+}
 #app {
   background-color: #63002a;
   color: #fff1db;
