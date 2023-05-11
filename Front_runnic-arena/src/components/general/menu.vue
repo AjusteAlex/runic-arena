@@ -11,13 +11,12 @@ import { RouterLink, RouterView } from 'vue-router';
         </div>
         <nav>
           <router-link to="/"><img src="/icons/iconecarte.png" />Accueil</router-link>
-
           <router-link to="/cards"><img src="/icons/Iconecompétences.png" />Cartes</router-link>
           <router-link to="/skills"><img src="/icons/Iconetype.png" />Compétences</router-link>
           <router-link to="/abilities"><img src="/icons/Star.png" />Capacitées</router-link>
-
           <router-link to="/types"><img src="/icons/Star.png" />Types</router-link>
-          <!-- <router-link to="/colors">Colors</router-link> -->
+          <router-link to="/colors"><img src="/icons/Star.png" />Couleurs</router-link>
+          <router-link to="/classes"><img src="/icons/Star.png" />Classes</router-link>
         </nav>
       </header>
       <RouterView/>
@@ -37,7 +36,7 @@ import { RouterLink, RouterView } from 'vue-router';
     header {
         background-color: #0B004E;
         color: #fff;
-        width: 300px;
+        max-width: 400px;
     }
     .menu-titre{
         min-height: 115px;

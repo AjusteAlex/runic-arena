@@ -1,24 +1,34 @@
 <template>
     <div>
-        <h1> Mise a jour Type</h1>
+        <h1> Mise a jour de la compétence</h1>
         <form class="form" @submit.prevent enctype="multipart/form-data">
             <div class="form-section">
-                <label>Nom du type</label>
+                <label>Nom de la compétence</label>
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Nom de la compétence"
+
                     v-model="name"
                 />
             </div>
             <div class="form-section">
-                <label>Couleur du type</label>
+                <label>Attribue</label>
                 <input
                     type="text"
-                    placeholder="Couleur du type"
-                    v-model="colortype"
+                    placeholder="Attribue"
+                    v-model="attribute"
                 />
             </div>
-            <button @click="updateType">Modifier le type</button>
+            <div class="form-section">
+                <label>description</label>
+                <input
+                    type="text"
+                    placeholder="description"
+                    v-model="description"
+                />
+            </div>
+            <button @click="updateSkill">Modifier le type</button>
+
           
         </form>
     </div>
@@ -29,25 +39,27 @@
         data() {
             return {
                 name: '',
-                colortype: '',
+                attribute: '',
+                description: ''
             }
         },
         methods: {  
-            async updateType(){
-                console.log('ici')
+            async updateSkill(){
                 const id = this.$route.params.id
-                const typeData = {
+                const skillData = {
                     name: this.name,
-                    colortype: this.colortype,
+                    attribute: this.attribute,
+                    description: this.description,
                 }
-                console.log(typeData)
+
                
                 await fetch(`http://localhost:3000/skill/${id}`, {
                     method: "put",
                     headers: {
                     "Content-Type": "application/json"
                     },
-                    body: JSON.stringify(typeData),
+                    body: JSON.stringify(skillData),
+
                 } )
                 this.$router.push('/skills')
             }

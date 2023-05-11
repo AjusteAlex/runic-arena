@@ -1,16 +1,18 @@
 <template>
     <div class="container">
-        <MenuType/>
-        <TypeUpdate/>
+        <MenuSkill/>
+        <SkillUpdate/>
+
     </div>
 </template>
 
 <script>
-import TypeUpdate from '../../components/formulaire/TypeUpdate.vue';
-import MenuType from '@/components/type/MenuType.vue';
+import SkillUpdate from '../../components/formulaire/SkillUpdate.vue';
+import MenuSkill from '@/components/skill/MenuSkill.vue';
 
 export default{
-    components: { TypeUpdate,MenuType }
+    components: { SkillUpdate,MenuSkill }
+
 }
 
 </script>

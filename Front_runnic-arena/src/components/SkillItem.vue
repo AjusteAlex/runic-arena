@@ -1,22 +1,22 @@
 <template>
   <div class="skills" v-if="skills">
-    <br>
     <thead>
-        <tr>
-            <th colspan="2">ID</th>
-            <th colspan="2">Attribue</th>
-            <th colspan="2">Nom</th>
-            <th colspan="2">Description</th>
-        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Attribut</th>
+        <th>Nom</th>
+        <th>Description</th>
+    </tr>
     </thead>
     <div v-for="skill in skills" :key="skill.id">
-      <!-- id : {{skill.id}} Attribue : {{skill.attribute}} Nom : {{skill.name}}  Description : {{skill.description}}  -->
       <tbody>
         <tr>
-            <th>{{skill.id}}</th>
-            <th> {{skill.attribute}}</th>
-            <th> {{skill.name}}</th>
-            <th>{{skill.description}} </th>
+            <td>{{skill.id}}</td>
+            <td> {{skill.attribute}}</td>
+            <td> {{skill.name}}</td>
+            <td>{{skill.description}} </td>
+            <a v-bind:href="'/skill/update/'+ skill.id">Mettre a jour</a> 
+            <button @click="supprimer(skill)">Supprimer</button>
         </tr>
     </tbody>
     </div>
@@ -47,6 +47,15 @@ export default{
         .catch(error => {
           error => console.error(error)
         });
+    },
+    methods: {
+      async supprimer(skill){
+        const id = skill.id
+        await fetch(`http://localhost:3000/skill/${id}`, {
+          method: "delete"
+        })  
+        window.location.reload()  
+      }
     }
 }
 </script>
@@ -57,15 +66,16 @@ export default{
     display: block;
   }
 }
-table,
-td {
-    border: 1px solid #333;
+table {
+  border-collapse: collapse;
+  width: 100%;
 }
-rgb(255, 255, 255)
-thead,
-tfoot {
-    background-color: #333;
-    color: #fff;
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  min-width: 150px;
+
 }
 
 </style>

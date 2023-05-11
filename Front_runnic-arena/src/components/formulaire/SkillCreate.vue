@@ -1,7 +1,8 @@
 <template>
 
     <div>
-        <h1> Création de la compétence</h1>
+        <h1> Création d'une compétence</h1>
+
         <form class="form" method="post" enctype="multipart/form-data">
             <div class="form-section">
                 <label>Nom de la compétence</label>
@@ -27,7 +28,8 @@
                     v-model="description"
                 />
             </div>
-            <button @click="addSkill">Créer la compétence</button>
+            <button @click="addType">Créer compétence</button>
+
           
         </form>
     </div>
@@ -43,12 +45,12 @@
             }
         },
         methods: {
-            async addSkill(e) {
+            async addType(e) {
                 e.preventDefault()
 
                 let formData = new FormData();
-                formData.append('attribute', this.attribute);
                 formData.append('name', this.name);
+                formData.append('attribute', this.attribute);
                 formData.append('description', this.description);
 
                 try {

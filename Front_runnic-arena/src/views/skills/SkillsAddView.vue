@@ -8,7 +8,8 @@
 
 <script>
 import SkillCreate from '@/components/formulaire/SkillCreate.vue';
-import MenuSkill from '@/components/skill/MenuSkill.vue';
+import MenuSkill from '@/components/Skill/MenuSkill.vue';
+
 
 export default{
     components: { SkillCreate, MenuSkill }

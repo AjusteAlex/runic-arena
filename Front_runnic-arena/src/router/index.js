@@ -58,6 +58,7 @@ const router = createRouter({
     {
       path: "/skills",
       name: "skills",
+
       component: SkillsView,
     },
     {
