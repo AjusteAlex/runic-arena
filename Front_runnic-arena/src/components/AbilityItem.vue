@@ -3,6 +3,8 @@
     <br>
     <div v-for="ability in abilities" :key="ability.id">
       {{ability.id}} {{ability.name}} {{ability.description}} {{ability.value}} {{ability.state}} 
+      <a v-bind:href="'/ability/update/'+ ability.id">Mettre a jour</a> 
+      <button @click="supprimer(ability)">Supprimer</button>
     </div>
   </div>
 </template>
@@ -19,18 +21,27 @@ export default{
     },
     mounted() {
       fetch('http://localhost:3000/ability')
-        .then(reslponse => {
+        .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
           return response.json();
         })
         .then(response => {
-          this.abilities = response.allabilitys;
+          this.abilities = response.allabilities;
         })
         .catch(error => {
           error => console.error(error)
         });
+    },
+    methods: {
+      async supprimer(ability){
+        const id = ability.id
+        await fetch(`http://localhost:3000/ability/${id}`, {
+          method: "delete"
+        })  
+        window.location.reload()  
+      }
     }
 }
 </script>

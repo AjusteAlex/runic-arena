@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import AbilitiesView from "../views/AbilitiesView.vue";
+// import AbilitiesView from "../views/AbilitiesView.vue";
 import ColorsView from "../views/ColorsView.vue";
 import HomeView from "../views/HomeView.vue";
 
@@ -16,6 +16,10 @@ import SkillsUpdateView from "../views/skills/SkillsUpdateView.vue";
 import ClassessView from "../views/classes/ClassesView.vue";
 import ClassesAddView from "../views/classes/ClassesAddView.vue";
 import ClassessUpdateView from "../views/classes/ClassesUpdateView.vue";
+
+import AbilitiesView from "../views/abilities/AbilitiesView.vue";
+import AbilitiesAddView from "../views/abilities/AbilitiesAddView.vue";
+import AbilitiesUpdateView from "../views/abilities/AbilitiesUpdateView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -96,6 +100,23 @@ const router = createRouter({
       path: "/classe/update/:id",
       name: "updateClasseView",
       component: ClassessUpdateView,
+    },
+
+    
+    {
+      path: "/abilities",
+      name: "abilities",
+      component: AbilitiesView,
+    },
+    {
+      path: "/add/ability",
+      name: "addAbilitiesView",
+      component: AbilitiesAddView,
+    }, 
+    {
+      path: "/ability/update/:id",
+      name: "updateAbilityView",
+      component: AbilitiesUpdateView,
     },
   ],
 });

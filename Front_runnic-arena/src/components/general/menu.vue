@@ -16,7 +16,7 @@ import { RouterLink, RouterView } from 'vue-router';
           <router-link to="/abilities"><img src="/icons/Star.png" />Capacitées</router-link>
           <router-link to="/types"><img src="/icons/Star.png" />Types</router-link>
           <router-link to="/colors"><img src="/icons/Star.png" />Couleurs</router-link>
-          <router-link to="/classes"><img src="/icons/Star.png" />Classes</router-link>
+          <router-link to="/classes"><img src="/icons/Iconetype.png" />Classes</router-link>
         </nav>
       </header>
       <RouterView/>

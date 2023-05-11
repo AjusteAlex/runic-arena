@@ -20,7 +20,7 @@ model Card {
   classeid  Int
   type     Type @relation(fields: [typeid], references: [id])
   typeid    Int
-  // colors   ColorsOnCards[]
+  // colors   ColorsSkillsCards[]
 }
 
 model Skill {
@@ -28,7 +28,7 @@ model Skill {
   attribute   String
   name        String
   description String
-  // colors      ColorsOnSkills[]
+  // colors    ColorsSkillsCards[]
   abilities   AbilitiesOnSkills[]
   cards       SkillsOnCards[]
 }
@@ -45,8 +45,7 @@ model Ability {
 model Color {
   id              Int              @id @default(autoincrement())
   color           String
-  // cards           ColorsOnCards[]
-
+  // cards        ColorsSkillsCards[]
 }
 
 model Classe {
@@ -79,6 +78,12 @@ model SkillsOnCards {
   @@id([skillId, cardId])
 }
 
-// model ColorsOnSkills {
-  
+// model ColorsSkillsCards {
+    // skill   Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+    // skillId Int
+    // card    Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+    // cardId  Int
+    // color    Color  @relation(fields: [colorId], references: [id], onDelete: Cascade)
+    // colorId  Int
+    //   @@id([skillId, cardId, colorId])
 // }
