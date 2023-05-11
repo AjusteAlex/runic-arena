@@ -3,6 +3,7 @@ import AbilitiesView from "../views/AbilitiesView.vue";
 import CardsView from "../views/CardsView.vue";
 import ColorsView from "../views/ColorsView.vue";
 import HomeView from "../views/HomeView.vue";
+
 import TypesView from "../views/types/TypesView.vue";
 import TypesAddView from "../views/types/TypesAddView.vue";
 import TypesUpdateView from "../views/types/TypesUpdateView.vue";
@@ -56,7 +57,8 @@ const router = createRouter({
 
     {
       path: "/skills",
-      name: "tskillsypes",
+      name: "skills",
+
       component: SkillsView,
     },
     {

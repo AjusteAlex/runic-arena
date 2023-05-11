@@ -75,6 +75,7 @@ th, td {
   text-align: left;
   padding: 8px;
   min-width: 150px;
+
 }
 
 </style>

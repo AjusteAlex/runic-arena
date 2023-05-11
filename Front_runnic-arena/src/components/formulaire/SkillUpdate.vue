@@ -7,6 +7,7 @@
                 <input
                     type="text"
                     placeholder="Nom de la compétence"
+
                     v-model="name"
                 />
             </div>
@@ -27,6 +28,7 @@
                 />
             </div>
             <button @click="updateSkill">Modifier le type</button>
+
           
         </form>
     </div>
@@ -49,6 +51,7 @@
                     attribute: this.attribute,
                     description: this.description,
                 }
+
                
                 await fetch(`http://localhost:3000/skill/${id}`, {
                     method: "put",
@@ -56,6 +59,7 @@
                     "Content-Type": "application/json"
                     },
                     body: JSON.stringify(skillData),
+
                 } )
                 this.$router.push('/skills')
             }

@@ -2,6 +2,7 @@
     <div class="container">
         <MenuSkill/>
         <SkillUpdate/>
+
     </div>
 </template>
 
@@ -11,6 +12,7 @@ import MenuSkill from '@/components/skill/MenuSkill.vue';
 
 export default{
     components: { SkillUpdate,MenuSkill }
+
 }
 
 </script>

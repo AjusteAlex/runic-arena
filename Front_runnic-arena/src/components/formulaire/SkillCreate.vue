@@ -2,6 +2,7 @@
 
     <div>
         <h1> Création d'une compétence</h1>
+
         <form class="form" method="post" enctype="multipart/form-data">
             <div class="form-section">
                 <label>Nom de la compétence</label>
@@ -28,6 +29,7 @@
                 />
             </div>
             <button @click="addType">Créer compétence</button>
+
           
         </form>
     </div>
@@ -50,6 +52,7 @@
                 formData.append('name', this.name);
                 formData.append('attribute', this.attribute);
                 formData.append('description', this.description);
+
                 try {
                 await fetch('http://127.0.0.1:3000/skill', {
                     method: 'POST',
