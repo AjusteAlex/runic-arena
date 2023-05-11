@@ -62,14 +62,11 @@ router
           },
         })),
       };
-      console.log("1");
     }
-    console.log("2");
     try {
       const card = await prisma.card.create({
         data: cardData,
       });
-      console.log("oh");
       res.status(200).json({ message: "Carte bien crée." });
     } catch (err) {
       res.status(400);
@@ -114,7 +111,6 @@ router
           };
         }
       } catch (err) {
-        // Une erreur s'est produite lors de la recherche de la compétence
         console.error(err);
         return res.status(500).json({
           error:

@@ -6,7 +6,7 @@ const multer = require('multer')
 const upload = multer()
 
 
-// ================= AJOUTER UPLOAD D'ICON ===========================
+// ================= AJOUTER UPLOAD D'ICONE ===========================
 
 router
   .route("/")
