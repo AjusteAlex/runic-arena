@@ -77,5 +77,14 @@ th, td {
   min-width: 150px;
 
 }
+.skills a, button {
+  background-color: #FFF1DB;
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: none;
+  margin: 0 5px;
+  text-decoration: none;
+  color: black;
+}
 
 </style>
