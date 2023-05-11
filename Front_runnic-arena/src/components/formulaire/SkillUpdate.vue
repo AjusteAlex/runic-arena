@@ -50,14 +50,14 @@
                     description: this.description,
                 }
                
-                await fetch(`http://localhost:3000/types/${id}`, {
+                await fetch(`http://localhost:3000/skill/${id}`, {
                     method: "put",
                     headers: {
                     "Content-Type": "application/json"
                     },
                     body: JSON.stringify(skillData),
                 } )
-                this.$router.push('/types')
+                this.$router.push('/skills')
             }
         }
     }
