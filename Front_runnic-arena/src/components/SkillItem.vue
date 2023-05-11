@@ -1,8 +1,24 @@
 <template>
   <div class="skills" v-if="skills">
-    <br>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Attribut</th>
+        <th>Nom</th>
+        <th>Description</th>
+    </tr>
+    </thead>
     <div v-for="skill in skills" :key="skill.id">
-      {{skill.id}} {{skill.attribute}} {{skill.name}} {{skill.description}} 
+      <tbody>
+        <tr>
+            <td>{{skill.id}}</td>
+            <td> {{skill.attribute}}</td>
+            <td> {{skill.name}}</td>
+            <td>{{skill.description}} </td>
+            <a v-bind:href="'/skill/update/'+ skill.id">Mettre a jour</a> 
+            <button @click="supprimer(skill)">Supprimer</button>
+        </tr>
+    </tbody>
     </div>
   </div>
 </template>
@@ -31,6 +47,15 @@ export default{
         .catch(error => {
           error => console.error(error)
         });
+    },
+    methods: {
+      async supprimer(skill){
+        const id = skill.id
+        await fetch(`http://localhost:3000/skill/${id}`, {
+          method: "delete"
+        })  
+        window.location.reload()  
+      }
     }
 }
 </script>
@@ -41,4 +66,25 @@ export default{
     display: block;
   }
 }
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  min-width: 150px;
+
+}
+.skills a, button {
+  background-color: #FFF1DB;
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: none;
+  margin: 0 5px;
+  text-decoration: none;
+  color: black;
+}
+
 </style>

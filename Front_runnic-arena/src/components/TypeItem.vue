@@ -1,7 +1,9 @@
 <template>
   <div class="types">  
     <div v-for="type in types" :key="type.id">
-      {{type.id}}  {{type.name}} <a v-bind:href="'/type/update/'+ type.id">Mettre a jour</a> <button @click="supprimer(type)">Supprimer</button>
+      {{type.id}}  {{type.name}} 
+      <a v-bind:href="'/type/update/'+ type.id">Mettre a jour</a> 
+      <button @click="supprimer(type)">Supprimer</button>
     </div>
   </div>
 </template> 
@@ -50,5 +52,14 @@ export default{
     min-height: 100vh;
     display: block;
   }
+}
+.types a, button {
+  background-color: #FFF1DB;
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: none;
+  margin: 0 5px;
+  text-decoration: none;
+  color: black;
 }
 </style>

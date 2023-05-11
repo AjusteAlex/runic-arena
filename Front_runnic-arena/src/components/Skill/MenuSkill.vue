@@ -2,8 +2,8 @@
     <template>
         <div class="container-type">
             <div class="container-link">
-                <a href="/types">Tous les types</a>
-                <a href="/add/type">Créer un type</a>
+                <a href="/skills">Toutes les compétences</a>
+                <a href="/add/skill">Création d'une compétence</a>
             </div>
         </div>
     </template>
@@ -24,17 +24,5 @@
         padding: 50px;
     }
 
-<script></script>
-<style>
-.container-type {
-  width: 100%;
-  border-bottom: 1px solid #fff1db;
-}
-.container-link {
-  padding: 50px;
-}
-.container-link a {
-  color: #fff1db;
-  padding: 50px;
-}
-</style>
+    </style>
+  
