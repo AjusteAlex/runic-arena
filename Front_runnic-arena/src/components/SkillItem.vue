@@ -2,9 +2,15 @@
   <div class="skills" v-if="skills">
     <br>
     <div v-for="skill in skills" :key="skill.id">
-      {{skill.id}} {{skill.attribute}} {{skill.name}} {{skill.description}} 
-      <a v-bind:href="'/skill/update/'+ skill.id">Mettre a jour</a> 
-      <button @click="supprimer(skill)">Supprimer</button>
+      <!-- id : {{skill.id}} Attribue : {{skill.attribute}} Nom : {{skill.name}}  Description : {{skill.description}}  -->
+      <tbody>
+        <tr>
+            <th>{{skill.id}}</th>
+            <th> {{skill.attribute}}</th>
+            <th> {{skill.name}}</th>
+            <th>{{skill.description}} </th>
+        </tr>
+    </tbody>
     </div>
   </div>
 </template>
@@ -33,6 +39,15 @@ export default{
         .catch(error => {
           error => console.error(error)
         });
+    },
+    methods: {
+      async supprimer(skill){
+        const id = skill.id
+        await fetch(`http://localhost:3000/skills/${id}`, {
+          method: "delete"
+        })  
+        window.location.reload()  
+      }
     }
 }
 </script>
@@ -43,4 +58,15 @@ export default{
     display: block;
   }
 }
+table,
+td {
+    border: 1px solid #333;
+}
+rgb(255, 255, 255)
+thead,
+tfoot {
+    background-color: #333;
+    color: #fff;
+}
+
 </style>
