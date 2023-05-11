@@ -91,9 +91,13 @@
       <p>Type de la carte : {{ typeCard }}</p>
 
       <template v-if="listTypesCard">
-        <select v-model="typeCard">
+        <select
+          v-model="typeCard"
+          @change="selectTypeId($event.target.value)"
+          :name="typeCard"
+        >
           <option value="">Choisissez</option>
-          <option v-for="type in listTypesCard" :key="type.id" :value="type">
+          <option v-for="type in listTypesCard" :key="type.id" :value="type.id">
             {{ type.name }}
           </option>
         </select>
@@ -106,12 +110,29 @@
         </select>
       </template>
       <p>Classe de la carte : {{ classCard }}</p>
-      <select v-model="classCard">
-        <option value="">Choisissez</option>
-        <option v-for="item in arrayClassCard" :key="item" :value="item">
-          {{ item }}
-        </option>
-      </select>
+      <template v-if="classCard">
+        <select
+          v-model="classCard"
+          @change="selectClasseId($event.target.value)"
+          :name="classCard"
+        >
+          <option value="">Choisissez</option>
+          <option
+            v-for="classe in listClassesCard"
+            :key="classe.id"
+            :value="classe.id"
+          >
+            {{ classe.name }}
+          </option>
+        </select>
+      </template>
+      <template v-else>
+        <select v-model="classCard">
+          <option value="">Choisissez</option>
+          <option>Halo</option>
+          <option>Chaos</option>
+        </select>
+      </template>
       <p>Force de la carte : {{ strengthCard }}</p>
       <input type="number" v-model="strengthCard" placeholder="45" />
       <p>Image de la carte :</p>
@@ -141,6 +162,7 @@
 
       <p>
         <input type="submit" value="Submit" />
+        <!-- <button>Créer la carte</button> -->
       </p>
     </form>
   </div>
@@ -157,26 +179,40 @@ export default {
     return {
       nameCard: "",
       typeCard: "Halo",
+      typeIdCard: null,
       classCard: "MAGE",
+      classIdCard: null,
       arrayClassCard: ["MAGE", "ASSASSIN", "ARCHER", "SOIGNEUR", "GUERRIER"],
       strengthCard: "",
       errors: [],
       costColors: [],
       nbAbilities: 3,
       listTypesCard: null,
+      listClassesCard: null,
       previewImageUrl: null,
       runicCubeType: "default",
       runicColorList: null,
       trouve: false,
       skillList: [],
       stateList: [],
+      img: null,
     };
   },
   computed: {},
   methods: {
+    selectClasseId(id) {
+      this.classIdCard = id;
+      this.classCard = this.listClassesCard.find(
+        (object) => object.id == id
+      ).name;
+    },
+    selectTypeId(id) {
+      this.classIdCard = id;
+      this.classCard = this.listClassesCard.find(
+        (object) => object.id == id
+      ).name;
+    },
     runicCubeSvgUrl(color) {
-      // return `/src/assets/icons/runicCubes/runic_cube_default.svg`;
-
       return `/src/assets/icons/runicCubes/runic_cube_${color}.svg`;
     },
     updateRunicCubePassive(stateSkillObject, numSkill) {
@@ -256,41 +292,85 @@ export default {
       if (this.errors.length > 0) {
         return false;
       }
-
+      console.log("here");
       // Soumettre le formulaire
-      $this.addCard();
+      this.addCard();
     },
-
-    addCard() {
-      const card = {
-        name: this.nameCard,
-        type: this.typeCard,
-        class: this.classCard,
-        strength: this.strengthCard,
-      };
-
+    async addCard() {
+      // e.preventDefault();
+      let formData = new FormData();
+      formData.append("name", this.nameCard);
+      formData.append("picture", this.img);
+      formData.append("type", this.typeIdCard);
+      formData.append("classe", this.classIdCard);
+      formData.append("strenght", this.strengthCard);
+      // const card = {
+      //   name: this.nameCard,
+      //   picture: this.img,
+      //   type: this.typeCard,
+      //   classe: this.classCard,
+      //   strenght: this.strengthCard,
+      // };
+      // try {
+      //   await fetch("http://localhost:3000/card", {
+      //     method: "POST",
+      //     // body: JSON.stringify(card),
+      //     body: formData,
+      //   });
+      //   console.log("dd");
+      //   // this.message = "Card has been sucessfully created.";
+      //   this.$router.push("/cards");
+      // } catch (error) {
+      //   console.error(error);
+      //   // this.message = error.response.data.message;
+      // }
       fetch("http://localhost:3000/card", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(card),
+        body: formData,
+        // body: JSON.stringify(card),
       })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
+          } else {
+            console.log("dd");
+            this.$router.push("/cards");
           }
-          return response.json();
-        })
-        .then((response) => {
-          this.cards = response.allcards;
         })
         .catch((error) => {
           console.error(error);
         });
     },
+    // addCard() {
+    //   const card = {
+    //     name: this.nameCard,
+    //     type: this.typeCard,
+    //     class: this.classCard,
+    //     strength: this.strengthCard,
+    //   };
+
+    //   fetch("http://localhost:3000/card", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(card),
+    //   })
+    //     .then((response) => {
+    //       if (!response.ok) {
+    //         throw new Error("Network response was not ok");
+    //       }
+    //       return response.json();
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // },
     uploadImage(e) {
       const image = e.target.files[0];
+
+      this.img = document.getElementById("img-card").files[0];
+      console.log(this.img);
       const reader = new FileReader();
       reader.readAsDataURL(image);
       reader.onload = (e) => {
@@ -307,7 +387,24 @@ export default {
         return response.json();
       })
       .then((response) => {
-        this.listSkills = response.allskills;
+        this.listTypesCard = response.alltypes;
+        this.typeIdCard = this.listTypesCard[0].id;
+        this.typeCard = this.listTypesCard[0].name;
+      })
+      .catch((error) => {
+        (error) => console.error(error);
+        console.log(error);
+      });
+
+    fetch("http://localhost:3000/classes")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((response) => {
+        this.listClassesCard = response.allclasses;
       })
       .catch((error) => {
         (error) => console.error(error);

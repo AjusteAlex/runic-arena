@@ -71,14 +71,6 @@ CREATE TABLE `SkillsOnCards` (
     PRIMARY KEY (`skillId`, `cardId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- CreateTable
-CREATE TABLE `ColorsOnSkills` (
-    `skillId` INTEGER NOT NULL,
-    `colorId` INTEGER NOT NULL,
-
-    UNIQUE INDEX `ColorsOnSkills_skillId_colorId_key`(`skillId`, `colorId`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
 -- AddForeignKey
 ALTER TABLE `Card` ADD CONSTRAINT `Card_classeid_fkey` FOREIGN KEY (`classeid`) REFERENCES `Classe`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -96,9 +88,3 @@ ALTER TABLE `SkillsOnCards` ADD CONSTRAINT `SkillsOnCards_skillId_fkey` FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE `SkillsOnCards` ADD CONSTRAINT `SkillsOnCards_cardId_fkey` FOREIGN KEY (`cardId`) REFERENCES `Card`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `ColorsOnSkills` ADD CONSTRAINT `ColorsOnSkills_skillId_fkey` FOREIGN KEY (`skillId`) REFERENCES `Skill`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `ColorsOnSkills` ADD CONSTRAINT `ColorsOnSkills_colorId_fkey` FOREIGN KEY (`colorId`) REFERENCES `Color`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
