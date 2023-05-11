@@ -1,7 +1,8 @@
 <template>
   <div class="cards" v-if="cards">
     <div v-for="card in cards" :key="card.id">
-      {{ card.id }} {{ card.name }} {{ card.picture }} {{ card.type }}
+      {{ card.id }} {{ card.name }} 
+      <img v-bind:src="'http://localhost:3000/'+ card.picture "> {{ card.type }}
       {{ card.class }} {{ card.strenght }}
     </div>
   </div>
