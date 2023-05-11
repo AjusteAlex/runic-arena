@@ -1,6 +1,4 @@
-<script>
-
-</script>
+<script></script>
 
 <template>
   <div id="app">
@@ -10,8 +8,8 @@
 
 <style scoped>
 #app {
-  background-color: #63002A;
-  color: #FFF1DB;
+  background-color: #63002a;
+  color: #fff1db;
 }
 header {
   line-height: 1.5;
